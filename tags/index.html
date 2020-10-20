@@ -1,134 +1,1681 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-<meta name="description" content=""/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="温故而知新">
+<meta name="theme-color" content="#000">
 <title>Blog</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1603196109156">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
 
-<link rel="shortcut icon" href="https://lhlh1994.github.io/favicon.ico?v=1603181791462">
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
 
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://lhlh1994.github.io/styles/main.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/styles/main.css">
 
-<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 
-<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
-<!-- DEMO JS -->
-<!--<script src="media/scripts/index.js"></script>-->
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
 
 
 
 </head>
+
 <body>
-<div class="main gt-bg-theme-color-first">
-    <div class="main-content">
-        <nav class="navbar navbar-expand-lg">
-    <div class="navbar-brand">
-        <img class="user-avatar" src="/images/avatar.png" alt="头像">
-        <div class="site-name gt-c-content-color-first">
-            Blog
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
         </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>Blog</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">精于心，简于形</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-home"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives/" target="_self">
+                  <i class="fa fa-archive"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item nav-item-active">
+              
+              
+                <a href="/tags/" target="_self">
+                  <i class="fa fa-tags"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about/" target="_self">
+                  <i class="fa fa-user"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="navbar-nav mr-auto" style="text-align: center">
-            
-                <div class="nav-item">
-                    
-                        <a href="/" class="menu gt-a-link">
-                            首页
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/archives" class="menu gt-a-link">
-                            归档
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/tags" class="menu gt-a-link">
-                            标签
-                        </a>
-                    
-                </div>
-            
-                <div class="nav-item">
-                    
-                        <a href="/post/about" class="menu gt-a-link">
-                            关于
-                        </a>
-                    
-                </div>
-            
-        </div>
-        <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1603181791462" action="/search/index.html">
-                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
-                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
-            </form>
-        </div>
-    </div>
-</nav>
+  </header>
+</div>
 
-        <div class="post-container">
-            <div class="post-detail gt-bg-theme-color-first">
-                <article class="gt-post-content">
-                    <h2 class="post-title">标签</h2>
-        <div class="tags-container">
-            
-                <a class="tag gt-c-content-color-first gt-a-link"
-                   href="https://lhlh1994.github.io/tag/Bc6DxoHCx/">#bigdata</a>
-            
-        </div>
-    </article>
-</div>
-</div>
-        <div class="site-footer gt-c-content-color-first">
-    <div class="slogan gt-c-content-color-first">温故而知新</div>
-    <div class="social-container">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    </div>
-    <div class="footer-info">
-        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-    </div>
-    <div>
-        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
-                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://lhlh1994.github.io/atom.xml" target="_blank">RSS</a></a>
-    </div>
-</div>
+<script type="text/javascript"> 
+ 
+  let showNav = true;
 
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout  pisces">
+      <div class="section-layout-wrapper">
+        <div id="sidebarMeta" class="sidebar">
+    
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">适用 Gemini,Pisces 布局,版权说明需配置</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://lhlh1994.github.io/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+
+
+
+</div>
+</div>
 <script>
-  hljs.initHighlightingOnLoad()
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'pisces';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
+      }
+    });
+  }
+  </script>
+        <div class="section-box box-shadow-wrapper">
+          <section class="section tags-section bg-color posts-expand">
+            <div class="tags-box">
+  <div class="tag-cloud-title language" data-lan="cloud-tags" data-count="1">
+    目前共计 1 个标签
+  </div>
+  <div class="tag-cloud-list" id="tags">
+    
+      
+      
+        
+          
+            
+      
+      <a class="cloud-tag" href="https://lhlh1994.github.io/tag/Bc6DxoHCx/" rel="1">bigdata</a>
+    
+  </div>
+</div>
+<script>
+
+  let fontStart = 12, fontEnd = 30, colorStart = '#666', colorEnd = '#000';
+  let tags = document.querySelector('#tags').children;
+  let counts = [];
+  for(let i = 0; i < tags.length; i++) {
+    counts.push(tags[i].rel);
+  }
+  let lowest = Math.min.apply(null,counts), highest = Math.max.apply(null,counts);;
+  let range = highest - lowest;
+  if (range === 0) {
+    range = 1;
+  }
+  let fontIncr, colorIncr;
+  fontIncr = (fontEnd - fontStart) / range;
+  
+  let sColorArr = toRGB(colorStart), eColorArr = toRGB(colorEnd);
+
+  for(let i = 0; i < tags.length; i++) {
+    let disCount = tags[i].rel - lowest;
+    let fontSize = fontStart + disCount * fontIncr;
+    let style = 'font-size: ' + fontSize + 'px;';
+    let arr = [];
+    for(let c = 0; c < sColorArr.length; c++) {
+      if (disCount === 0) {
+        disCount = 1;
+      }
+      let val = (sColorArr[c] - eColorArr[c]) / range * disCount;
+      if (val >= 100) {
+        val = eColorArr[c];
+      } else if (val <= 0) {
+        val = sColorArr[c];
+      }
+      arr[c] = Math.floor(val);
+    }
+    style += 'color: ' + toHex(arr);
+    tags[i].style = style;
+  }
+
+  function toRGB(code) {
+    if (code.length === 4) {
+      code = code.replace(/(\w)(\w)(\w)/gi, "\$1\$1\$2\$2\$3\$3");
+    }
+    var hex = /(\w{2})(\w{2})(\w{2})/.exec(code);
+    return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
+  }
+
+  function toHex(ary) {
+    return "#" + ((1 << 24) + (ary[0] << 16) + (ary[1] << 8) + ary[2]).toString(16).slice(1);
+  }
+
+</script>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
+        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.onresize = function () {
+    calcuHeight();
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        window.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "";
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+
+</script>
+  </div>
+</body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/dolphinscheduler-bu-shu/"" data-c="
+          &lt;h1 id=&#34;dolphinscheduler部署文档集群版&#34;&gt;dolphinscheduler部署文档（集群版）&lt;/h1&gt;
+&lt;h2 id=&#34;集群规划&#34;&gt;集群规划&lt;/h2&gt;
+&lt;h3 id=&#34;ds集群生产配置&#34;&gt;ds集群（生产配置）&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;hostname&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;th&gt;Memory&lt;/th&gt;
+&lt;th&gt;Disk size&lt;/th&gt;
+&lt;th&gt;Master&lt;/th&gt;
+&lt;th&gt;Worker&lt;/th&gt;
+&lt;th&gt;Logger&lt;/th&gt;
+&lt;th&gt;Alert&lt;/th&gt;
+&lt;th&gt;API&lt;/th&gt;
+&lt;th&gt;UI&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DS01&lt;/td&gt;
+&lt;td&gt;8C&lt;/td&gt;
+&lt;td&gt;16G&lt;/td&gt;
+&lt;td&gt;50G&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DS02&lt;/td&gt;
+&lt;td&gt;8C&lt;/td&gt;
+&lt;td&gt;16G&lt;/td&gt;
+&lt;td&gt;50G&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DS03&lt;/td&gt;
+&lt;td&gt;4C&lt;/td&gt;
+&lt;td&gt;8G&lt;/td&gt;
+&lt;td&gt;50G&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;√&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;若是部署了大数据框架，则机器性能需要进一步提升&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;zk集群&#34;&gt;zk集群&lt;/h3&gt;
+&lt;p&gt;1C-2G-50G&lt;/p&gt;
+&lt;h2 id=&#34;准备每台机器都要这样操作&#34;&gt;准备（每台机器都要这样操作）&lt;/h2&gt;
+&lt;h3 id=&#34;创建用户&#34;&gt;创建用户&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# 创建用户需使用root登录，设置部署用户名，请自行修改，后面以dolphinscheduler为例
+useradd dolphinscheduler;
+
+# 设置用户密码，请自行修改，后面以dolphinscheduler123为例
+echo &amp;quot;dolphinscheduler&amp;quot; | passwd --stdin dolphinscheduler
+
+# 配置sudo免密
+echo &#39;dolphinscheduler  ALL=(ALL)  NOPASSWD: NOPASSWD: ALL&#39; &amp;gt;&amp;gt; /etc/sudoers
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;hosts映射&#34;&gt;hosts映射&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vi /etc/hosts
+
+10.10.0.87  master
+10.10.2.110  slave1
+10.10.2.111  slave2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;配置免密登录&#34;&gt;配置免密登录&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;su dolphinscheduler;
+
+ssh-keygen -t rsa -P &#39;&#39; -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+# 分发
+su dolphinscheduler;
+for ip in ds2 ds3;     #请将此处ds2 ds3替换为自己要部署的机器的hostname
+do
+    ssh-copy-id  $ip   #该操作执行过程中需要手动输入dolphinscheduler用户的密码
+done
+# 当然 通过 sshpass -p xxx ssh-copy-id $ip 就可以省去输入密码了
+
+在每台机器上使用ssh，需要输入yes，让机器记录下public-key，包括localhost
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;下载&#34;&gt;下载&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;后端: wget https://downloads.apache.org/incubator/dolphinscheduler/1.2.0/apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-backend-bin.tar.gz
+前端: wget https://downloads.apache.org/incubator/dolphinscheduler/1.2.0/apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-front-bin.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;部署后端&#34;&gt;部署后端&lt;/h2&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p /opt/app/dolphinscheduler    # ds的安装目录
+mkdir -p /opt/soft/dolphinscheduler    # ds的下载目录
+cd /opt/soft/dolphinscheduler
+tar -zxvf apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-backend-bin.tar.gz -C /opt/app/dolphinscheduler
+mv apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-backend-bin  dolphinscheduler-backend
+
+tree -L 1    # 查看目录结构
+.
+├── bin           # 基础服务启动脚本
+├── conf          # 项目配置文件
+├── DISCLAIMER-WIP# DISCLAIMER文件
+├── install.sh    # 一键部署脚本
+├── lib           # 项目依赖jar包，包括各个模块jar和第三方jar
+├── LICENSE       # LICENSE文件
+├── licenses      # 运行时license
+├── NOTICE        # NOTICE文件
+├── script        # 集群启动、停止和服务监控启停脚本
+└── sql           # 项目依赖sql文件
+
+# 授权解压目录
+sudo chown -R dolphinscheduler:dolphinscheduler dolphinscheduler-backend
+# 授权安装目录
+sudo chown -R dolphinscheduler:dolphinscheduler /opt/app/dolphinscheduler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;jdk软连接&#34;&gt;jdk软连接&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;echo $JAVA_HOME    # 没有软连接后面在启动脚本的时候会报错：nohup /bin/java不存在
+sudo ln -s /usr/java/jdk1.8.0_111/bin/java /usr/bin/java
+原先软连接关联的是openjdk的需要删掉
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;数据库初始化&#34;&gt;数据库初始化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;创建数据库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;mysql -uroot -p
+-- 创建数据库
+CREATE DATABASE dolphinscheduler DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+-- 创建用户及授权（可能需要修改数据库密码等级）
+GRANT ALL PRIVILEGES ON dolphinscheduler.* TO &#39;dolphinscheduler&#39;@&#39;%&#39; IDENTIFIED BY &#39;dolphinscheduler&#39;;
+GRANT ALL PRIVILEGES ON dolphinscheduler.* TO &#39;dolphinscheduler&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;dolphinscheduler&#39;;
+flush privileges;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;修改配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;vi conf/application-dao.properties
+# 需要注释掉postgresql的信息
+# postgre
+#spring.datasource.driver-class-name=org.postgresql.Driver
+#spring.datasource.url=jdbc:postgresql://localhost:5432/dolphinscheduler
+# mysql
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://master:3306/dolphinscheduler?useUnicode=true&amp;amp;characterEncoding=UTF-8     #需要修改ip，本机localhost即可
+spring.datasource.username=dolphinscheduler
+spring.datasource.password=dolphinscheduler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;执行脚本初始化数据表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;sh script/create-dolphinscheduler.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;尖叫提示：执行脚本前需要下载mysql-java驱动程序包（需要选择对应mysql版本的驱动，不是bin），https://downloads.mysql.com/archives/c-j/&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;尖叫提示：如果执行上述脚本报 ”/bin/java: No such file or directory“ 错误，请在/etc/profile下配置 JAVA_HOME 及 PATH 变量&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;修改环境变量&#34;&gt;修改环境变量&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;vi conf/env/.dolphinscheduler_env.sh    # 这是一个隐藏文件
+# JAVA_HOME 和 PATH 是必须要配置的，其他没有用到的可以忽略或者注释掉
+#export HADOOP_HOME=/opt/soft/hadoop
+#export HADOOP_CONF_DIR=/opt/soft/hadoop/etc/hadoop
+#export SPARK_HOME1=/opt/soft/spark1
+#export SPARK_HOME2=/opt/soft/spark2
+#export PYTHON_HOME=/opt/soft/python
+export JAVA_HOME=/usr/java/jdk1.8.0_111
+#export HIVE_HOME=/opt/soft/hive
+#export FLINK_HOME=/opt/soft/flink
+export PATH=$HADOOP_HOME/bin:$SPARK_HOME2/bin:$PYTHON_HOME:$JAVA_HOME/bin:$HIVE_HOME/bin:$PATH:$FLINK_HOME/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;安装python的zookeeper工具kazoo每台都要安装&#34;&gt;安装python的zookeeper工具kazoo（每台都要安装）&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;#安装pip
+sudo yum -y install python-pip;  #ubuntu请使用 sudo apt-get install python-pip
+sudo pip install kazoo;
+
+# 注意：如果yum没找到python-pip，也可以通过下面方式安装
+sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py  # 如果是python3，使用sudo python3 get-pip.py
+#然后
+sudo pip install kazoo;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;修改一键部署脚本&#34;&gt;修改一键部署脚本&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vi install.sh
+# for example postgresql or mysql ...
+dbtype=&amp;quot;mysql&amp;quot;
+
+# db config
+# db address and port
+dbhost=&amp;quot;master:3306&amp;quot;
+
+# db name
+dbname=&amp;quot;dolphinscheduler&amp;quot;
+
+# db username
+username=&amp;quot;dolphinscheduler&amp;quot;
+
+# db passwprd
+# Note: if there are special characters, please use the \ transfer character to transfer
+passowrd=&amp;quot;dolphinscheduler&amp;quot;
+
+# conf/config/install_config.conf config
+# Note: the installation path is not the same as the current path (pwd)
+# 将应用安装到哪个目录下
+installPath=&amp;quot;/opt/app/dolphinscheduler&amp;quot;
+
+# deployment user
+# Note: the deployment user needs to have sudo privileges and permissions to operate hdfs. If hdfs is enabled, the root directory needs to be created by itself
+# 使用哪个用户部署
+deployUser=&amp;quot;dolphinscheduler&amp;quot;
+
+# zk cluster,集群方式以逗号分隔
+zkQuorum=&amp;quot;master:2181,slave1:2181,slave2:2181&amp;quot;
+
+# install hosts
+# Note: install the scheduled hostname list. If it is pseudo-distributed, just write a pseudo-distributed hostname
+# 在哪些机器上部署
+ips=&amp;quot;master,slave1,slave2&amp;quot;
+
+# conf/config/run_config.conf config
+# run master machine
+# Note: list of hosts hostname for deploying master
+masters=&amp;quot;master,slave1&amp;quot;
+
+# run worker machine
+# note: list of machine hostnames for deploying workers
+workers=&amp;quot;master,slave1,slave2&amp;quot;
+
+# run alert machine
+# note: list of machine hostnames for deploying alert server
+alertServer=&amp;quot;master&amp;quot;
+
+# run api machine
+# note: list of machine hostnames for deploying api server
+apiServers=&amp;quot;master&amp;quot;
+
+# 邮件服务
+# alert config
+# mail protocol
+mailProtocol=&amp;quot;SMTP&amp;quot;
+
+# mail server host
+mailServerHost=&amp;quot;hwSMTP.qiye.163.com&amp;quot;
+
+# mail server port
+mailServerPort=&amp;quot;994&amp;quot;
+
+# sender
+mailSender=&amp;quot;dtservice@bwton.com&amp;quot;
+
+# user
+mailUser=&amp;quot;dtservice@bwton.com&amp;quot;
+
+# sender password
+mailPassword=&amp;quot;BSngfWCyH7N8C5ZT&amp;quot;
+
+# TLS mail protocol support
+starttlsEnable=&amp;quot;false&amp;quot;
+
+sslTrust=&amp;quot;hwSMTP.qiye.163.com&amp;quot;
+
+# SSL mail protocol support
+# note: The SSL protocol is enabled by default.
+# only one of TLS and SSL can be in the true state.
+sslEnable=&amp;quot;true&amp;quot;
+
+# download excel path
+xlsFilePath=&amp;quot;/tmp/xls&amp;quot;
+
+# 业务用到的比如sql等资源文件上传到哪里，可以设置：HDFS,S3,NONE，单机如果想使用本地文件系统，请配置为HDFS，因为HDFS支持本地文件系统；如果不需要资源上传功能请选择NONE。强调一点：使用本地文件系统不需要部署hadoop
+resUploadStartupType=&amp;quot;HDFS&amp;quot;
+
+# 这里以保存到本地文件系统为例
+#注：但是如果你想上传到HDFS的话，NameNode启用了HA，则需要将core-site.xml和hdfs-site.xml放到conf目录下，本例即是放到/opt/dolphinscheduler/conf下面，并配置namenode cluster名称；如果NameNode不是HA,则修改为具体的ip或者主机名即可
+defaultFS=&amp;quot;hdfs://hadoopcluster/dolphinscheduler&amp;quot;    #hdfs://{具体的ip/主机名}:8020
+
+# 如果ResourceManager是HA，则配置为ResourceManager节点的主备ip或者hostname,比如&amp;quot;192.168.xx.xx,192.168.xx.xx&amp;quot;，否则如果是单ResourceManager或者根本没用到yarn,请配置yarnHaIps=&amp;quot;&amp;quot;即可，我这里没用到yarn，配置为&amp;quot;&amp;quot;
+yarnHaIps=&amp;quot;&amp;quot;
+
+# 如果是单ResourceManager，则配置为ResourceManager节点ip或主机名，否则保持默认值即可。我这里没用到yarn，保持默认
+singleYarnIp=&amp;quot;&amp;quot;
+
+# 由于hdfs支持本地文件系统，需要确保本地文件夹存在且有读写权限
+hdfsPath=&amp;quot;/data/dolphinscheduler&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;执行一键部署脚本&#34;&gt;执行一键部署脚本&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;su dolphinscheduler
+
+sh install.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;查看进程是否启动&#34;&gt;查看进程是否启动&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;jps
+
+master
+MasterServer         ----- master服务
+WorkerServer         ----- worker服务
+LoggerServer         ----- logger服务
+ApiApplicationServer ----- api服务
+AlertServer          ----- alert服务
+
+slave1
+MasterServer         ----- master服务
+WorkerServer         ----- worker服务
+LoggerServer         ----- logger服务
+
+slave2
+WorkerServer         ----- worker服务
+LoggerServer         ----- logger服务
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;解压&#34;&gt;解压&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;tar -zxvf apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-front-bin.tar.gz -C /opt/soft/dolphinscheduler;
+mv apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-front-bin dolphinscheduler-ui
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;部署前端&#34;&gt;部署前端&lt;/h2&gt;
+&lt;h3 id=&#34;部署&#34;&gt;部署&lt;/h3&gt;
+&lt;h4 id=&#34;自动化部署&#34;&gt;自动化部署&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;执行自动化部署脚本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;cd dolphinscheduler-ui;
+sh ./install-dolphinscheduler-ui.sh;
+执行后，会在运行中请键入前端端口，默认端口是8888，如果选择默认，键入回车，或者键入其他端口
+然后会让键入跟前端ui交互的api-server的ip
+接着是让键入跟前端ui交互的api-server的port
+接着是操作系统选择
+等待部署完成
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;修改nginx配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;vi /etc/nginx/nginx.conf
+# add param 在http方法体内添加即可
+client_max_body_size 1024m;
+systemctl restart nginx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;手动部署&#34;&gt;手动部署&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;安装nginx，官网下载: http://nginx.org/en/download.html 或者 yum install nginx -y&lt;/li&gt;
+&lt;li&gt;修改nginx配置文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;vi /etc/nginx/nginx.conf
+server {
+  listen       8888;# 访问端口(自行修改)
+  server_name  localhost;
+  #charset koi8-r;
+  #access_log  /var/log/nginx/host.access.log  main;
+  location / {
+      root   /opt/app/dolphinscheduler-ui/dist;      # 前端解压的dist目录地址(自行修改)
+      index  index.html index.html;
+  }
+  location /dolphinscheduler {
+      proxy_pass http://localhost:12345;    # api服务地址(自行修改)
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header x_real_ipP $remote_addr;
+      proxy_set_header remote_addr $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_http_version 1.1;
+      proxy_connect_timeout 4s;
+      proxy_read_timeout 30s;
+      proxy_send_timeout 12s;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection &amp;quot;upgrade&amp;quot;;
+  }
+  #error_page  404              /404.html;
+  # redirect server error pages to the static page /50x.html
+  #
+  error_page   500 502 503 504  /50x.html;
+  location = /50x.html {
+      root   /usr/share/nginx/html;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;初始账号密码&#34;&gt;初始账号密码&lt;/h3&gt;
+&lt;p&gt;地址：192.168.xx.xx:8888 用户名密码：admin/dolphinscheduler123&lt;/p&gt;
+&lt;h2 id=&#34;指令&#34;&gt;指令&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;启动：
+    启动所有进程：sh bin/start-all.sh
+    启动master-server：sh bin/dolphinscheduler-daemon.sh start master-server
+    启动worker-server：sh bin/dolphinscheduler-daemon.sh start worker-server
+    启动logger-server：sh bin/dolphinscheduler-daemon.sh start logger-server
+    启动alert-server：sh bin/dolphinscheduler-daemon.sh start alert-server
+    启动api-server：sh bin/dolphinscheduler-daemon.sh start api-server
+
+停止：
+    停止所有进程：sh bin/stop-all.sh
+    停止master-server：sh bin/dolphinscheduler-daemon.sh stop master-server
+    停止worker-server：sh bin/dolphinscheduler-daemon.sh stop worker-server
+    停止logger-server：sh bin/dolphinscheduler-daemon.sh stop logger-server
+    停止alert-server：sh bin/dolphinscheduler-daemon.sh stop alert-server
+    停止api-server：sh bin/dolphinscheduler-daemon.sh stop api-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;dolphinscheduler使用与测试文档&#34;&gt;dolphinscheduler使用与测试文档&lt;/h1&gt;
+&lt;h2 id=&#34;安全中心security&#34;&gt;安全中心（Security）&lt;/h2&gt;
+&lt;h3 id=&#34;队列管理queue-manage&#34;&gt;队列管理（Queue manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;队列是在执行 spark、mapreduce 等程序，需要用到“队列”参数时使用的（创建后不可删除）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;安全中心 -&amp;gt; 队列管理 -&amp;gt; 创建队列
+------------------------------------------------------
+名称：quene_test
+队列值：quene_test
+------------------------------------------------------
+提交
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;租户管理tenant-manage&#34;&gt;租户管理（Tenant Manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;租户对应的是 Linux 的用户，用于 worker 提交作业所使用的用户。&lt;br&gt;
+如果 Linux 没有这个用户，worker 会在执行脚本的时候创建这个用户。&lt;br&gt;
+租户编码：租户编码是 Linux 上的用户，唯一，不能重复。&lt;br&gt;
+新建的租户会在 HDFS 上 $hdfsPath(&amp;quot;/dolphinscheduler&amp;quot;） 目录下创建租户目录，租户目录下为该租户上传的文件和 UDF 函数&lt;br&gt;
+租户名称：租户编码的别名&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;安全中心 -&amp;gt; 租户管理 -&amp;gt; 创建租户
+------------------------------------------------------
+租户编码：test
+租户名称：test
+队列值：default
+------------------------------------------------------
+提交
+
+使用到HDFS需要为该用户在 HDFS 上创建用户目录
+sudo -u hdfs hadoop fs -mkdir /user/developer
+sudo -u hdfs hadoop fs -chown developer:developer /user/developer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;用户管理user-manage&#34;&gt;用户管理（User Manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用户分为管理员用户和普通用户。&lt;br&gt;
+授予权限包括：项目权限，资源权限，数据源权限，UDF函数权限。&lt;br&gt;
+管理员可以对普通用户进行非其创建的项目、资源、数据源和UDF函数进行授权。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;安全中心 -&amp;gt; 用户管理 -&amp;gt; 创建用户
+------------------------------------------------------
+用户名称：test
+密码：test123
+租户：test
+队列：default
+邮箱：liuhao@bwton.com
+手机号：
+-----------------------------------------------------+-
+提交
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;实际生产环境中，可将 项目、用户、租户 相关联，即为某个大的项目创建一个用户及对应的租户。若需要删除用户，则应首先将项目内的任务删除，然后删除项目，再删除用户及关联的租户，否则会出现任务无法运行，项目不可见等情况（1.2 版本）&lt;br&gt;
+如果该 用户切换租户，则该 用户在当前租户下创建的所有资源 将 复制 到新的租户下（对于 HDFS 平台来说，则是将当前租户目录下该用户创建的所有资源复制到新租户的目录下，不复制被赋权的文件，且被赋权的文件仍有权限）。需要注意的是，此后进行文件删除操作时，旧租户下的对应的文件并不会被删除。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;告警组管理warning-group-manage&#34;&gt;告警组管理（Warning group manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;告警组是在启动时设置的参数，在流程结束以后会将流程的状态和其他信息以邮件形式发送给告警组。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;worker分组管理worker-group-manage&#34;&gt;Worker分组管理（Worker group manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;worker 分组，提供了一种让任务在指定的 worker 上运行的机制。&lt;br&gt;
+管理员创建 worker 分组，在任务节点和运行参数中设置中可以指定该任务运行的 worker 分组。&lt;br&gt;
+如果指定的分组被删除或者没有指定分组，则该任务会在任意一个 worker 上运行。worker 分组内多个 ip 地址（不能写别名），以英文逗号分隔。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;安全中心 -&amp;gt; Worker分组管理 -&amp;gt; 创建Worker分组
+------------------------------------------------------
+组名称：worker_group1
+IP：10.10.0.87
+------------------------------------------------------
+提交
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;令牌管理token-manage&#34;&gt;令牌管理（Token manage）&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由于后端接口有登录检查，令牌管理，提供了一种可以通过调用接口的方式对系统进行各种操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;监控中心monitor&#34;&gt;监控中心（Monitor）&lt;/h2&gt;
+&lt;p&gt;略&lt;/p&gt;
+&lt;h2 id=&#34;数据源中心datasource&#34;&gt;数据源中心（Datasource）&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;数据源中心 -&amp;gt; 创建数据源 -&amp;gt; MYSQL
+------------------------------------------------------
+数据源名称：10.10.0.87
+描述：
+IP主机名：10.10.0.87
+端口：3306
+用户名：root
+密码：Bwton@2018
+数据库名：test
+jdbc连接参数：{&amp;quot;useSSL&amp;quot;:&amp;quot;false&amp;quot;,&amp;quot;useUnicode&amp;quot;:&amp;quot;true&amp;quot;,&amp;quot;characterEncoding&amp;quot;:&amp;quot;UTF-8&amp;quot;,&amp;quot;allowMultiQueries&amp;quot;:&amp;quot;true&amp;quot;}
+------------------------------------------------------
+测试链接 -&amp;gt; 编辑
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其他数据源：略&lt;/p&gt;
+&lt;h2 id=&#34;资源中心resources&#34;&gt;资源中心（Resources）&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;资源中心所有文件对应的 Mysql 表为：t_ds_resources&lt;br&gt;
+UDF 对应的 Mysql 表为：t_ds_udfs&lt;br&gt;
+资源中心的文件上传、删除操作使用的用户均为 install.sh 中指定的 $hdfsRootUser&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;由于没有使用HDFS，略&lt;/p&gt;
+&lt;h2 id=&#34;项目管理project&#34;&gt;项目管理（Project）&lt;/h2&gt;
+&lt;h3 id=&#34;创建项目&#34;&gt;创建项目&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;项目名称 不可重复。即使为不同用户，创建项目时若 项目名称 已存在。会提示 “project Test already exists”。&lt;br&gt;
+若要删除项目，需要确认项目中所有 工作流定义 都已下线并删除，才能进行删除操作。&lt;br&gt;
+实际生产环境中，建议使用 管理员账户 创建项目，并对开发人员赋权。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 创建项目
+------------------------------------------------------
+项目名称：测试项目
+描述：
+------------------------------------------------------
+提交
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;项目首页&#34;&gt;项目首页&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;项目名称 -&amp;gt; 项目首页
+------------------------------------------------------
+任务状态统计：是指在指定时间范围内，统计 任务实例 中的待运行、失败、运行中、完成、成功的个数
+流程状态统计：是指在指定时间范围内，统计 工作流实例 中的待运行、失败、运行中、完成、成功的个数
+流程定义统计：是统计当前用户有权限的项目的 工作流定义 总数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;工作流定义的工作流每运行一次，产生一个工作流实例，一个工作流实例包含一到多个任务实例。同一任务实例仅被统计一次，按最近时间状态进行统计。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;工作流定义&#34;&gt;工作流定义&lt;/h3&gt;
+&lt;h4 id=&#34;创建工作流定义&#34;&gt;创建工作流定义&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流定义 -&amp;gt; 创建工作流
+Step 1：拖拽“SHELL&amp;quot;节点到画布，新增一个Shell任务。
+------------------------------------------------------
+节点名称：task01
+描述：This is a test task.
+任务优先级：MEDIUM
+Worker分组：Default
+失败重试次数：0
+失败重试间隔：1
+脚本：
+    #!/bin/sh
+    echo &amp;quot;HELLO WORLD.&amp;quot;
+资源：
+自定义参数：
+------------------------------------------------------
+    确认添加
+
+Step 2：拖拽“SHELL&amp;quot;节点到画布，新增一个Shell任务。
+------------------------------------------------------
+节点名称：task02
+描述：This is another test task.
+任务优先级：MEDIUM
+Worker分组：Default
+失败重试次数：0
+失败重试间隔：1
+脚本：
+    #!/bin/sh
+    echo &amp;quot;HELLO DOLPHIN SCHEDULER.&amp;quot;
+资源：
+自定义参数：
+-&amp;gt; 确认添加
+------------------------------------------------------
+Step 3：“选择线条连接”，连接任务1、2，tesk01、task02 会串行执行。
+Step 4：保存
+------------------------------------------------------
+设置DAG图名称：Test_shell
+选择租户：test
+------------------------------------------------------
+-&amp;gt; 添加
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;更多任务类型详见：&lt;/p&gt;
+&lt;h4 id=&#34;工作流定义操作功能&#34;&gt;工作流定义操作功能&lt;/h4&gt;
+&lt;p&gt;工作流定义列表的操作功能如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑： 只能编辑&amp;quot;下线&amp;quot;的工作流定义。工作流DAG编辑同创建工作流定义。&lt;/li&gt;
+&lt;li&gt;上线： 工作流状态为&amp;quot;下线&amp;quot;时，上线工作流，只有&amp;quot;上线&amp;quot;状态的工作流能运行，但不能编辑。&lt;/li&gt;
+&lt;li&gt;下线： 工作流状态为&amp;quot;上线&amp;quot;时，下线工作流，下线状态的工作流可以编辑，但不能运行。&lt;/li&gt;
+&lt;li&gt;运行： 只有上线的工作流能运行。运行操作步骤见 5.5.3.3 运行工作流&lt;/li&gt;
+&lt;li&gt;定时： 只有上线的工作流能设置定时，系统自动定时调度工作流运行。创建定时后的状态为&amp;quot;下线&amp;quot;，需在定时管理页面上线定时才生效。定时操作步骤见 5.5.3.4 工作流定时。&lt;/li&gt;
+&lt;li&gt;定时管理： 定时管理页面可编辑、上线/下线、删除定时。&lt;/li&gt;
+&lt;li&gt;删除： 删除工作流定义。&lt;/li&gt;
+&lt;li&gt;下载： 下载工作流定义到本地&lt;/li&gt;
+&lt;li&gt;树形图： 以树形结构展示任务节点的类型及任务状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;运行工作流&#34;&gt;运行工作流&lt;/h4&gt;
+&lt;p&gt;工作流运行参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;失败策略：当某一个任务节点执行失败时，其他并行的任务节点需要执行的策略。”继续“表示：某一任务失败后，其他任务节点正常执行；”结束“表示：终止所有正在执行的任务，并终止整个流程。&lt;/li&gt;
+&lt;li&gt;通知策略：当流程结束，根据流程状态发送流程执行信息通知邮件，包含任何状态都不发，成功发，失败发，成功或失败都发。&lt;/li&gt;
+&lt;li&gt;流程优先级：流程运行的优先级，分五个等级：最高（HIGHEST），高(HIGH),中（MEDIUM）,低（LOW），最低（LOWEST）。当master线程数不足时，级别高的流程在执行队列中会优先执行，相同优先级的流程按照先进先出的顺序执行。&lt;/li&gt;
+&lt;li&gt;worker分组：该流程只能在指定的worker机器组里执行。默认是Default，可以在任一worker上执行。&lt;/li&gt;
+&lt;li&gt;通知组：选择通知策略||超时报警||发生容错时，会发送流程信息或邮件到通知组里的所有成员。&lt;/li&gt;
+&lt;li&gt;收件人：选择通知策略||超时报警||发生容错时，会发送流程信息或告警邮件到收件人列表。&lt;/li&gt;
+&lt;li&gt;抄送人：选择通知策略||超时报警||发生容错时，会抄送流程信息或告警邮件到抄送人列表。&lt;/li&gt;
+&lt;li&gt;补数：包括串行补数、并行补数2种模式。串行补数：指定时间范围内，从开始日期至结束日期依次执行补数，只生成一条流程实例；并行补数：指定时间范围内，多天同时进行补数，生成N条流程实例。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流定义 -&amp;gt; 选择工作流名称“Test_shell” -&amp;gt; 上线 -&amp;gt; 运行（参数均为默认，不做修改）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;工作流定时&#34;&gt;工作流定时&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;选择指定工作流，点击“定时”，选择起止时间、定时等选择定时执行时间。
+
+点击&amp;quot;创建&amp;quot;按钮，创建定时成功，此时定时状态为&amp;quot;下线&amp;quot;，定时需上线才生效。
+定时上线：点击&amp;quot;定时管理&amp;quot;按钮，进入定时管理页面，点击&amp;quot;上线&amp;quot;按钮，定时状态变为&amp;quot;上线&amp;quot;，如下图所示，工作流定时生效。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;下线 工作流定义 后，定时任务业务也会同时下线，工作流定义 上线后，需要重新手动上线定时任务&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;导入工作流&#34;&gt;导入工作流&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;点击项目管理-&amp;gt;工作流-&amp;gt;工作流定义，进入工作流定义页面，点击&amp;quot;导入工作流&amp;quot;按钮，导入本地工作流文件，工作流定义列表显示导入的工作流，状态为下线。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;工作流实例&#34;&gt;工作流实例&lt;/h4&gt;
+&lt;p&gt;工作流实例操作功能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑：可以对已经终止的流程进行编辑，编辑后保存的时候，可以选择是否 更新到工作流定义&lt;/li&gt;
+&lt;li&gt;重跑：可以对已经终止的流程进行重新执行&lt;/li&gt;
+&lt;li&gt;恢复失败：针对失败的流程，可以执行恢复失败操作，从失败的节点开始执行&lt;/li&gt;
+&lt;li&gt;停止：对正在运行的流程进行停止操作，后台会先 kill worker 进程，再执行 kill -9 操作&lt;/li&gt;
+&lt;li&gt;暂停：可以对正在运行的流程进行暂停操作，系统状态变为等待执行，会等待正在执行的任务结束，暂停下一个要执行的任务&lt;/li&gt;
+&lt;li&gt;恢复暂停：可以对暂停的流程恢复，直接从暂停的节点开始运行&lt;/li&gt;
+&lt;li&gt;删除：删除工作流实例及工作流实例下的任务实例&lt;/li&gt;
+&lt;li&gt;甘特图：Gantt图纵轴是某个工作流实例下的任务实例的拓扑排序，横轴是任务实例的运行时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;查看工作流实例：
+项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流实例 -&amp;gt; 点击工作流名称 -&amp;gt; 进入DAG查看页面，查看任务执行状态
+
+查看任务日志：
+进入DAG查看页面 -&amp;gt; 双击任务节点 -&amp;gt; 查看日志
+
+查看任务历史记录：
+进入DAG查看页面 -&amp;gt; 双击任务节点 -&amp;gt; 查看历史
+
+查看运行参数：
+进入工作流DAG页面 -&amp;gt; 点击左上角图标，查看工作流实例的启动参数、全局参数和局部参数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;任务实例&#34;&gt;任务实例&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;任务实例 -&amp;gt; 点击工作流实例名称 -&amp;gt; 可跳转到工作流实例DAG图查看任务状态
+任务实例 -&amp;gt; 查看日志
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;任务节点类型和参数设置&#34;&gt;任务节点类型和参数设置&lt;/h3&gt;
+&lt;h4 id=&#34;shell节点&#34;&gt;Shell节点&lt;/h4&gt;
+&lt;p&gt;运行说明：shell 节点，在 worker 执行的时候，会生成一个临时 shell 脚本，使用租户同名的linux 用户执行这个脚本。&lt;br&gt;
+参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;节点名称：一个工作流定义中的节点名称是唯一的&lt;/li&gt;
+&lt;li&gt;运行标志：标识这个节点是否能正常调度,如果不需要执行，可以打开禁止执行开关&lt;/li&gt;
+&lt;li&gt;描述信息：描述该节点的功能&lt;/li&gt;
+&lt;li&gt;任务优先级：级别高的任务在执行队列中会优先执行，相同优先级的任务按照先进先出的顺序执行&lt;/li&gt;
+&lt;li&gt;Worker分组：指定任务运行的机器列表&lt;/li&gt;
+&lt;li&gt;失败重试次数：任务失败重新提交的次数，支持下拉和手填&lt;/li&gt;
+&lt;li&gt;失败重试间隔：任务失败重新提交任务的时间间隔，支持下拉和手填&lt;/li&gt;
+&lt;li&gt;超时告警：当任务执行时间超过超时时长可以告警并且超时失败&lt;/li&gt;
+&lt;li&gt;脚本：用户开发的SHELL程序&lt;/li&gt;
+&lt;li&gt;资源：是指脚本中需要调用的资源文件列表&lt;/li&gt;
+&lt;li&gt;自定义参数：是SHELL局部的用户自定义参数，会替换脚本中以${变量}的内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流定义 -&amp;gt; 创建工作流
+------------------------------------------------------
+
+拖拽“SHELL&amp;quot;节点到画布，新增一个Shell任务。
+节点名称：Test_shell_01
+运行标志：正常
+描述：
+任务优先级：MEDIUM
+Worker分组：Default
+失败重试次数：0
+失败重试间隔：1
+超时告警：off
+脚本：
+    #!/bin/sh
+    for i in {1..10};do echo $i;done
+资源：
+自定义参数：
+-&amp;gt; 确认添加
+
+------------------------------------------------------
+
+保存 -&amp;gt;
+设置DAG图名称：Test_shell
+选择租户：Default
+超时告警：off
+设置全局：
+
+------------------------------------------------------
+
+添加 -&amp;gt; 上线 -&amp;gt; 运行
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;子流程节点&#34;&gt;子流程节点&lt;/h4&gt;
+&lt;p&gt;运行说明：子流程节点，就是把外部的某个工作流定义当做一个任务节点去执行。&lt;br&gt;
+参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;节点名称：一个工作流定义中的节点名称是唯一的&lt;/li&gt;
+&lt;li&gt;运行标志：标识这个节点是否能正常调度&lt;/li&gt;
+&lt;li&gt;描述信息：描述该节点的功能&lt;/li&gt;
+&lt;li&gt;超时告警：勾选超时告警、超时失败，当任务超过&amp;quot;超时时长&amp;quot;后，会发送告警邮件并且任务执行失败&lt;/li&gt;
+&lt;li&gt;子节点：是选择子流程的工作流定义，右上角进入该子节点可以跳转到所选子流程的工作流定义&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流定义 -&amp;gt; 创建工作流
+------------------------------------------------------
+
+Task 1：拖拽 SHELL 节点到画布，新增一个 Shell 任务
+节点名称：Test_subprocess_01
+... ...
+脚本：
+    #!/bin/sh
+    for i in {1..10};do echo $i;done
+-&amp;gt; 确认添加
+Task 2：拖拽 SUB_PROCESS 节点到画布，新增一个 SUB_PROCESS 任务
+节点名称：Test_subprocess_02
+... ...
+子节点：Test_shell
+-&amp;gt; 确认添加
+
+------------------------------------------------------
+
+串联任务节点 Task1 和 Task2
+------------------------------------------------------
+
+保存 -&amp;gt;
+设置DAG图名称：Test_subprocess
+选择租户：Default
+超时告警：off
+设置全局：
+
+------------------------------------------------------
+
+添加 -&amp;gt; 上线 -&amp;gt; 运行
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;存储过程节点&#34;&gt;存储过程节点&lt;/h4&gt;
+&lt;p&gt;运行说明：根据选择的数据源，执行存储过程。&lt;br&gt;
+参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据源：存储过程的数据源类型支持 MySQL、POSTGRESQL、CLICKHOUSE、ORACLE、SQLSERVER 等，选择对应的数据源&lt;/li&gt;
+&lt;li&gt;方法：是存储过程的方法名称&lt;/li&gt;
+&lt;li&gt;自定义参数：存储过程的自定义参数类型支持 IN、OUT 两种，数据类型支持 VARCHAR、INTEGER、LONG、FLOAT、DOUBLE、DATE、TIME、TIMESTAMP、BOOLEAN 九种数据类型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;sql节点&#34;&gt;SQL节点&lt;/h4&gt;
+&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据源：选择对应的数据源&lt;/li&gt;
+&lt;li&gt;sql类型：支持查询和非查询两种，查询是 select 类型的查询，是有结果集返回的，可以指定邮件通知为 表格、附件 或 表格与附件 三种模板。非查询是没有结果集返回的，是针对 update、delete、insert 三种类型的操作&lt;/li&gt;
+&lt;li&gt;主题、收件人、抄送人：邮件相关配置&lt;/li&gt;
+&lt;li&gt;sql参数：输入参数格式为 key1=value1;key2=value2…&lt;/li&gt;
+&lt;li&gt;sql语句：SQL语句&lt;/li&gt;
+&lt;li&gt;UDF函数：对于HIVE类型的数据源，可以引用资源中心中创建的UDF函数,其他类型的数据源暂不支持UDF函数&lt;/li&gt;
+&lt;li&gt;自定义参数：SQL任务类型，而存储过程是自定义参数顺序的给方法设置值自定义参数类型和数据类型同存储过程任务类型一样。区别在于SQL任务类型自定义参数会替换sql语句中 ${变量}&lt;/li&gt;
+&lt;li&gt;前置sql：执行 “sql语句” 前的操作&lt;/li&gt;
+&lt;li&gt;后置sql：执行 “sql语句” 后的操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例，以mysql为例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;项目管理 -&amp;gt; 工作流 -&amp;gt; 工作流定义 -&amp;gt; 创建工作流
+------------------------------------------------------
+
+Task 1：拖拽 SQL 节点到画布，新增一个 SQL 任务
+节点名称：Test_sql_mysql_01
+... ...
+数据源：MYSQL   10.10.0.87
+sql类型：查询   表格：√ 附件：√
+主题：Test MySQL
+收件人：liuhao@bwton.com
+sql语句：
+    select * from test_table where score=${i};
+自定义参数：
+    i -&amp;gt; IN -&amp;gt; INTEGER -&amp;gt; 97
+前置sql:
+    INSERT INTO test_table values(null, &#39;Dog&#39;,97)
+后置sql：
+-&amp;gt; 确认添加
+Task 2：拖拽 SQL 节点到画布，新增一个 SQL 任务
+节点名称：Test_sql_mysql_02
+... ...
+数据源：MYSQL   10.10.0.87
+sql类型：非查询
+sql语句：
+    create table test_table2 as select * from test_table;
+自定义参数：
+前置sql:
+后置sql：
+-&amp;gt; 确认添加
+
+------------------------------------------------------
+
+串联任务节点 Test_sql_mysql_01、Test_sql_mysql_02
+------------------------------------------------------
+
+保存 -&amp;gt;
+设置DAG图名称：Test_sql_mysql
+选择租户：Default
+超时告警：off
+设置全局：
+
+------------------------------------------------------
+
+添加 -&amp;gt; 上线 -&amp;gt; 运行
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;依赖dependent节点&#34;&gt;依赖(DEPENDENT)节点&lt;/h4&gt;
+&lt;p&gt;运行说明：依赖节点，就是依赖检查节点。比如A流程依赖昨天的B流程执行成功，依赖节点会去检查B流程在昨天是否有执行成功的实例。&lt;/p&gt;
+&lt;h4 id=&#34;其他节点略&#34;&gt;其他节点，略&lt;/h4&gt;
+&lt;h2 id=&#34;参数&#34;&gt;参数&lt;/h2&gt;
+&lt;h3 id=&#34;系统参数&#34;&gt;系统参数&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;${system.biz.date}&lt;/td&gt;
+&lt;td&gt;日常调度实例定时的定时时间前一天，格式为 yyyyMMdd，补数据时，该日期 +1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;${system.biz.curdate}&lt;/td&gt;
+&lt;td&gt;日常调度实例定时的定时时间，格式为 yyyyMMdd，补数据时，该日期 +1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;${system.datetime}&lt;/td&gt;
+&lt;td&gt;日常调度实例定时的定时时间，格式为 yyyyMMddHHmmss，补数据时，该日期 +1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;自定义参数&#34;&gt;自定义参数&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;支持代码中自定义变量名，声明方式：${变量名}。可以是引用 &amp;quot;系统参数&amp;quot; 或指定 &amp;quot;常量&amp;quot;。&lt;/li&gt;
+&lt;li&gt;我们定义这种基准变量为 [...] 格式的，[yyyyMMddHHmmss] 是可以任意分解组合的，比如：$[yyyyMMdd], $[HHmmss], $[yyyy-MM-dd] 等&lt;/li&gt;
+&lt;li&gt;也可以使用以下格式：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;* 后 N 年：$[add_months(yyyyMMdd,12*N)]
+* 前 N 年：$[add_months(yyyyMMdd,-12*N)]
+* 后 N 月：$[add_months(yyyyMMdd,N)]
+* 前 N 月：$[add_months(yyyyMMdd,-N)]
+* 后 N 周：$[yyyyMMdd+7*N]
+* 前 N 周：$[yyyyMMdd-7*N]
+* 后 N 天：$[yyyyMMdd+N]
+* 前 N 天：$[yyyyMMdd-N]
+* 后 N 小时：$[HHmmss+N/24]
+* 前 N 小时：$[HHmmss-N/24]
+* 后 N 分钟：$[HHmmss+N/24/60]
+* 前 N 分钟：$[HHmmss-N/24/60]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;官方使用文档&#34;&gt;官方使用文档&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://dolphinscheduler.apache.org/zh-cn/docs/1.2.0/user_doc/quick-start.html&#34;&gt;https://dolphinscheduler.apache.org/zh-cn/docs/1.2.0/user_doc/quick-start.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;出现的问题&#34;&gt;出现的问题&lt;/h2&gt;
+&lt;h3 id=&#34;创建租户&#34;&gt;创建租户&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;租户对应的是Linux的用户，用于worker提交作业所使用的用户。如果linux没有这个用户，worker会在执行脚本的时候创建这个用户。&lt;/li&gt;
+&lt;li&gt;租户编码：租户编码是Linux上的用户，唯一，不能重复&lt;/li&gt;
+&lt;li&gt;出现创建不了租户原因
+&lt;ol&gt;
+&lt;li&gt;ds的启动用户没有创建用户的权限&lt;/li&gt;
+&lt;li&gt;linux系统禁用了sudo，进入/etc/sudoers 将 Default requiretty注释掉&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;创建用户-2&#34;&gt;创建用户&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;权限划分，目的是为了更好的管理项目，资源，UDF，数据源等信息。&lt;/li&gt;
+&lt;li&gt;创建用户需要指定租户（要想admin用户有执行权限，需要给admin用户赋予租户）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;调度未执行&#34;&gt;调度未执行&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;定时任务上线成功，调度未执行，查看master没有打印错误日志&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;原因可能是quartz在启动时就报错了，导致quartz初始化没有成功。&lt;/li&gt;
+&lt;li&gt;修改master_logback.xml&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;root level=&amp;quot;INFO&amp;quot;&amp;gt;
+    &amp;lt;appender-ref ref=&amp;quot;MASTERLOGFILE&amp;quot;/&amp;gt;
+    &amp;lt;!-- 增加日志到控制台--&amp;gt;
+    &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot;/&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;查看master.out文件&lt;/li&gt;
+&lt;/ul&gt;
+">dolphinscheduler部署</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
 </script>
 
-    </div>
-</div>
-</body>
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/love.js"></script>
+
+
+
+
+
 </html>
