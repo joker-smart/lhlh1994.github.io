@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603368888106">
+<link rel="shortcut icon" href="/favicon.ico?v=1603369093470">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -912,8 +912,7 @@ LTRIM(str) 将字符串前面的空格去掉，字符串中间的空格不会去
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;straight_join-关键字&#34;&gt;STRAIGHT_JOIN 关键字&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;强制制定关联查询，让mysql按照用户想要的关联顺序去执行，不使用mysql的优化引擎。&lt;br&gt;
-适用范围：适用于跟inner join等价的，当做left join使用时要小心。若右边的表没有数据，使用STRAIGHT_JOIN会查询不到数据。&lt;/p&gt;
+&lt;p&gt;强制制定关联查询，让mysql按照用户想要的关联顺序去执行，不使用mysql的优化引擎。适用范围：适用于跟inner join等价的，当做left join使用时要小心。若右边的表没有数据，使用STRAIGHT_JOIN会查询不到数据。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;and-or优先级&#34;&gt;and &amp;amp; or优先级&lt;/h1&gt;
 &lt;blockquote&gt;
@@ -929,21 +928,20 @@ OR
 count = 3 and IN_STATION_ID = 2113442096093440
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;去重&#34;&gt;去重&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.DISTINCT&lt;br&gt;
-2.GROUP BY&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;DISTINCT&lt;/li&gt;
+&lt;li&gt;GROUP BY&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h1 id=&#34;强制区分大小写排序&#34;&gt;强制区分大小写排序&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;ORDER BY BINARY col_name&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ORDER BY BINARY col_name
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;日期操作&#34;&gt;日期操作&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.TIMESTAMPDIFF(YEAR,start,end) 获得年份差值&lt;br&gt;
-2.TIMESTAMPDIFF(MONTH,start,end) 获得月份差值&lt;br&gt;
-3.TIMESTAMPDIFF(DAY,start,end) 获得天数差值&lt;br&gt;
-4.DATE_FORMAT(NOW(),%Y-%m-%d %H-%i-%s) 格式化日期&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;TIMESTAMPDIFF(YEAR,start,end) 获得年份差值&lt;/li&gt;
+&lt;li&gt;TIMESTAMPDIFF(MONTH,start,end) 获得月份差值&lt;/li&gt;
+&lt;li&gt;TIMESTAMPDIFF(DAY,start,end) 获得天数差值&lt;/li&gt;
+&lt;li&gt;DATE_FORMAT(NOW(),%Y-%m-%d %H-%i-%s) 格式化日期&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h1 id=&#34;查询出重复数据中时间最新最早的一条&#34;&gt;查询出重复数据中时间最新/最早的一条&lt;/h1&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- 查询出重复数据中时间最新的一条
 select

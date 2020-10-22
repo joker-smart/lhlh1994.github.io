@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lhlh1994.github.io</id>
     <title>Blog</title>
-    <updated>2020-10-22T12:14:51.969Z</updated>
+    <updated>2020-10-22T12:18:16.209Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lhlh1994.github.io"/>
     <link rel="self" href="https://lhlh1994.github.io/atom.xml"/>
@@ -407,8 +407,7 @@ LTRIM(str) 将字符串前面的空格去掉，字符串中间的空格不会去
 </code></pre>
 <h1 id="straight_join-关键字">STRAIGHT_JOIN 关键字</h1>
 <blockquote>
-<p>强制制定关联查询，让mysql按照用户想要的关联顺序去执行，不使用mysql的优化引擎。<br>
-适用范围：适用于跟inner join等价的，当做left join使用时要小心。若右边的表没有数据，使用STRAIGHT_JOIN会查询不到数据。</p>
+<p>强制制定关联查询，让mysql按照用户想要的关联顺序去执行，不使用mysql的优化引擎。适用范围：适用于跟inner join等价的，当做left join使用时要小心。若右边的表没有数据，使用STRAIGHT_JOIN会查询不到数据。</p>
 </blockquote>
 <h1 id="and-or优先级">and &amp; or优先级</h1>
 <blockquote>
@@ -424,21 +423,20 @@ OR
 count = 3 and IN_STATION_ID = 2113442096093440
 </code></pre>
 <h1 id="去重">去重</h1>
-<blockquote>
-<p>1.DISTINCT<br>
-2.GROUP BY</p>
-</blockquote>
+<ol>
+<li>DISTINCT</li>
+<li>GROUP BY</li>
+</ol>
 <h1 id="强制区分大小写排序">强制区分大小写排序</h1>
-<blockquote>
-<p>ORDER BY BINARY col_name</p>
-</blockquote>
+<pre><code class="language-sql">ORDER BY BINARY col_name
+</code></pre>
 <h1 id="日期操作">日期操作</h1>
-<blockquote>
-<p>1.TIMESTAMPDIFF(YEAR,start,end) 获得年份差值<br>
-2.TIMESTAMPDIFF(MONTH,start,end) 获得月份差值<br>
-3.TIMESTAMPDIFF(DAY,start,end) 获得天数差值<br>
-4.DATE_FORMAT(NOW(),%Y-%m-%d %H-%i-%s) 格式化日期</p>
-</blockquote>
+<ol>
+<li>TIMESTAMPDIFF(YEAR,start,end) 获得年份差值</li>
+<li>TIMESTAMPDIFF(MONTH,start,end) 获得月份差值</li>
+<li>TIMESTAMPDIFF(DAY,start,end) 获得天数差值</li>
+<li>DATE_FORMAT(NOW(),%Y-%m-%d %H-%i-%s) 格式化日期</li>
+</ol>
 <h1 id="查询出重复数据中时间最新最早的一条">查询出重复数据中时间最新/最早的一条</h1>
 <pre><code class="language-sql">-- 查询出重复数据中时间最新的一条
 select
