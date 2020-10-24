@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Mysql基础 | Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603369093470">
+<link rel="shortcut icon" href="/favicon.ico?v=1603539470713">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -202,7 +202,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">5</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1359,6 +1359,335 @@ sed: s 替换 s/old/new/g 默认\t分隔
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/"" data-c="
+          &lt;h1 id=&#34;工程搭建&#34;&gt;工程搭建&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;JDK选择&lt;br&gt;
+在IDEA 中配置 jdk 的方式很简单，打开&lt;code&gt;File-&amp;gt;Project Structure&lt;/code&gt;，如下图所：&lt;br&gt;
+&lt;img src=&#34;https://lhlh1994.github.io/post-images/1603369501129.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;选择 SDKs&lt;/li&gt;
+&lt;li&gt;在 JDK home path 中选择本地 jdk 的安装目录&lt;/li&gt;
+&lt;li&gt;在 Name 中为 jdk 自定义名字&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;构建Spring Boot工程&lt;br&gt;
+通过&lt;code&gt;File-&amp;gt;New-&amp;gt;Project&lt;/code&gt;可以快速构建Spring Boot工程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Group：填企业域名，本课程使用com.itcodai&lt;/li&gt;
+&lt;li&gt;Artifact：填项目名称&lt;/li&gt;
+&lt;li&gt;Dependencies：可以添加我们项目中所需要的依赖信息，根据实际情况来添加&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Maven配置&lt;br&gt;
+创建了 Spring Boot 项目之后，需要进行 maven 配置。打开&lt;code&gt;File-&amp;gt;settings&lt;/code&gt;，搜索 maven，配置一下本地的 maven 信息。如下：&lt;br&gt;
+&lt;img src=&#34;https://lhlh1994.github.io/post-images/1603369915322.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;选择本机安装的Maven&lt;/li&gt;
+&lt;li&gt;选择公司的setting.xml文件&lt;/li&gt;
+&lt;li&gt;自定义Maven下载包的路径&lt;br&gt;
+建议在setting.xml文件中添加，阿里云镜像&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;mirror&amp;gt;
+    &amp;lt;id&amp;gt;nexus-aliyun&amp;lt;/id&amp;gt;
+    &amp;lt;mirrorOf&amp;gt;*&amp;lt;/mirrorOf&amp;gt;
+    &amp;lt;name&amp;gt;Nexus aliyun&amp;lt;/name&amp;gt;
+    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public&amp;lt;/url&amp;gt;
+&amp;lt;/mirror&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编码设置&lt;br&gt;
+&lt;code&gt;File-&amp;gt;settings&lt;/code&gt;&lt;br&gt;
+&lt;img src=&#34;https://lhlh1994.github.io/post-images/1603370132154.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;返回json数据将null转为&#34;&gt;返回json数据，将null转为&amp;quot;&amp;quot;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Jackson&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.io.IOException;
+
+@Configuration
+public class JacksonConfig {
+    @Bean
+    @Primary
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer&amp;lt;Object&amp;gt;() {
+            @Override
+            public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                jsonGenerator.writeString(&amp;quot;&amp;quot;);
+            }
+        });
+        return objectMapper;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;FastJson&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
+public class fastJsonConfig extends WebMvcConfigurationSupport {
+
+    /**
+     * 使用阿里 FastJson 作为JSON MessageConverter
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List&amp;lt;HttpMessageConverter&amp;lt;?&amp;gt;&amp;gt; converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        FastJsonConfig config = new FastJsonConfig();
+        config.setSerializerFeatures(
+                // 保留map空的字段
+                SerializerFeature.WriteMapNullValue,
+                // 将String类型的null转成&amp;quot;&amp;quot;
+                SerializerFeature.WriteNullStringAsEmpty,
+                // 将Number类型的null转成0
+                SerializerFeature.WriteNullNumberAsZero,
+                // 将List类型的null转成[]
+                SerializerFeature.WriteNullListAsEmpty,
+                // 将Boolean类型的null转成false
+                SerializerFeature.WriteNullBooleanAsFalse,
+                // 避免循环引用
+                SerializerFeature.DisableCircularReferenceDetect);
+
+        converter.setFastJsonConfig(config);
+        converter.setDefaultCharset(Charset.forName(&amp;quot;UTF-8&amp;quot;));
+        List&amp;lt;MediaType&amp;gt; mediaTypeList = new ArrayList&amp;lt;&amp;gt;();
+        // 解决中文乱码问题，相当于在Controller上的@RequestMapping中加了个属性produces = &amp;quot;application/json&amp;quot;
+        mediaTypeList.add(MediaType.APPLICATION_JSON);
+        converter.setSupportedMediaTypes(mediaTypeList);
+        converters.add(converter);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;封装统一返回数据结构&#34;&gt;封装统一返回数据结构&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = &amp;quot;返回结果实体类&amp;quot;)
+public class Result&amp;lt;T&amp;gt; {
+    @ApiModelProperty(value = &amp;quot;状态信息&amp;quot;, example = &amp;quot;success&amp;quot;)
+    private String msg;
+    @ApiModelProperty(value = &amp;quot;状态码&amp;quot;, example = &amp;quot;0&amp;quot;)
+    private int code;
+    @ApiModelProperty(&amp;quot;数据内容&amp;quot;)
+    private T data;
+
+    private Result(T data) {
+        this.code = 0;
+        this.msg = &amp;quot;success&amp;quot;;
+        this.data = data;
+    }
+
+    private Result(CodeMsg cm) {
+        if(cm == null){
+            return;
+        }
+        this.code = cm.getCode();
+        this.msg = cm.getMsg();
+    }
+
+    private Result(CodeMsg cm, String msg) {
+        if(cm == null){
+            return;
+        }
+        this.code = cm.getCode();
+        this.msg = msg;
+    }
+
+    /**
+     * 成功时候的调用
+     * @return
+     */
+    public static &amp;lt;T&amp;gt; Result&amp;lt;T&amp;gt; success(T data){
+        return new Result&amp;lt;T&amp;gt;(data);
+    }
+    /**
+     * 成功，不需要传入参数
+     * @return
+     */
+    @SuppressWarnings(&amp;quot;unchecked&amp;quot;)
+    public static &amp;lt;T&amp;gt; Result&amp;lt;T&amp;gt; success(CodeMsg cm){
+        return new Result&amp;lt;T&amp;gt;(cm);
+    }
+    /**
+     * 失败时候的调用
+     * @return
+     */
+    public static &amp;lt;T&amp;gt; Result&amp;lt;T&amp;gt; error(CodeMsg cm){
+        return new Result&amp;lt;T&amp;gt;(cm);
+    }
+    /**
+     * 失败时候的调用,扩展消息参数
+     * @param cm
+     * @param msg
+     * @return
+     */
+    public static &amp;lt;T&amp;gt; Result&amp;lt;T&amp;gt; error(CodeMsg cm,String msg){
+        return new Result&amp;lt;T&amp;gt;(cm, msg);
+    }
+    public T getData() {
+        return data;
+    }
+    public String getMsg() {
+        return msg;
+    }
+    public int getCode() {
+        return code;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;yml配置&#34;&gt;yml配置&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;日志配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    com.xxx.xxx: debug
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;属性配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;server:
+  port: 8001
+
+# 配置微服务的地址  获取: 代码中通过@Value获取
+url:
+  # 订单微服务的地址
+  orderUrl: http://localhost:8002
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;多环境配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;spring:
+  profiles:
+    active: dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;请求包体大小限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 1024MB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;logbackxml配置&#34;&gt;logback.xml配置&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;configuration scan=&amp;quot;true&amp;quot; scanPeriod=&amp;quot;60 seconds&amp;quot;&amp;gt;
+
+    &amp;lt;!--设置变量--&amp;gt;
+    &amp;lt;springProperty scope=&amp;quot;context&amp;quot; name=&amp;quot;LOG_HOME&amp;quot; source=&amp;quot;logging.path&amp;quot;/&amp;gt;
+    &amp;lt;springProperty scope=&amp;quot;context&amp;quot; name=&amp;quot;LOG_LEVEL&amp;quot; source=&amp;quot;logging.pattern.level&amp;quot;/&amp;gt;
+
+    &amp;lt;!--日志输出格式--&amp;gt;
+    &amp;lt;property name=&amp;quot;LOG.PATTERN&amp;quot; value=&amp;quot;%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{catRootId}] %-5level %logger{30} - %msg%n&amp;quot;/&amp;gt;
+
+    &amp;lt;!-- 日志文件大小--&amp;gt;
+    &amp;lt;property name=&amp;quot;LOG_MAX_SIZE&amp;quot; value=&amp;quot;1024MB&amp;quot;/&amp;gt;
+
+    &amp;lt;!-- 日志文件保留天数、最多允许占用的磁盘空间--&amp;gt;
+    &amp;lt;property name=&amp;quot;LOG_MAX_HISTORY&amp;quot; value=&amp;quot;10&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;LOG_TOTAL_SIZE_CAP&amp;quot; value=&amp;quot;10GB&amp;quot;/&amp;gt;
+
+    &amp;lt;!-- DEBUG日志文件保留天数、最多允许占用的磁盘空间--&amp;gt;
+    &amp;lt;property name=&amp;quot;DEBUG_LOG_MAX_HISTORY&amp;quot; value=&amp;quot;1&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;DEBUG_LOG_TOTAL_SIZE_CAP&amp;quot; value=&amp;quot;10GB&amp;quot;/&amp;gt;
+
+    &amp;lt;!--基于窗口大小的滚动策略 最多允许几个日志文件--&amp;gt;
+    &amp;lt;property name=&amp;quot;FIXED_WINDOWS_ROLLING_MIN_INDEX&amp;quot; value=&amp;quot;1&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;FIXED_WINDOWS_ROLLING_MAX_INDEX&amp;quot; value=&amp;quot;3&amp;quot;/&amp;gt;
+
+    &amp;lt;!--应用日志，保留LOG_MAX_HISTORY天，最多占用LOG_TOTAL_SIZE_CAP空间--&amp;gt;
+    &amp;lt;appender name=&amp;quot;APPLICATION_FILE&amp;quot; class=&amp;quot;ch.qos.logback.core.rolling.RollingFileAppender&amp;quot;&amp;gt;
+        &amp;lt;File&amp;gt;${LOG_HOME}/application.log&amp;lt;/File&amp;gt;
+        &amp;lt;!-- 过滤器，只记录级别大于等于INFO的日志 --&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.ThresholdFilter&amp;quot;&amp;gt;
+            &amp;lt;level&amp;gt;TRACE&amp;lt;/level&amp;gt;
+        &amp;lt;/filter&amp;gt;
+        &amp;lt;rollingPolicy class=&amp;quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&amp;quot;&amp;gt;
+            &amp;lt;FileNamePattern&amp;gt;${LOG_HOME}/backup/application.%d{yyyy-MM-dd}.%i.log.zip&amp;lt;/FileNamePattern&amp;gt;
+            &amp;lt;maxFileSize&amp;gt;${LOG_MAX_SIZE}&amp;lt;/maxFileSize&amp;gt;
+            &amp;lt;maxHistory&amp;gt;${LOG_MAX_HISTORY}&amp;lt;/maxHistory&amp;gt;
+            &amp;lt;totalSizeCap&amp;gt;${LOG_TOTAL_SIZE_CAP}&amp;lt;/totalSizeCap&amp;gt;
+        &amp;lt;/rollingPolicy&amp;gt;
+        &amp;lt;encoder class=&amp;quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&amp;quot;&amp;gt;
+            &amp;lt;pattern&amp;gt;${LOG.PATTERN}&amp;lt;/pattern&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;!--控制台输出--&amp;gt;
+    &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.ThresholdFilter&amp;quot;&amp;gt;
+            &amp;lt;level&amp;gt;TRACE&amp;lt;/level&amp;gt;
+        &amp;lt;/filter&amp;gt;
+        &amp;lt;encoder class=&amp;quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&amp;quot;&amp;gt;
+            &amp;lt;pattern&amp;gt;${LOG.PATTERN}&amp;lt;/pattern&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;logger name=&amp;quot;org.springframework&amp;quot; level=&amp;quot;WARN&amp;quot;/&amp;gt;
+    &amp;lt;logger name=&amp;quot;org.mybatis.spring&amp;quot; level=&amp;quot;WARN&amp;quot;/&amp;gt;
+    &amp;lt;logger name=&amp;quot;com.zaxxer.hikari&amp;quot; level=&amp;quot;INFO&amp;quot;/&amp;gt;
+    &amp;lt;logger name=&amp;quot;springfox&amp;quot; level=&amp;quot;WARN&amp;quot;/&amp;gt;
+    &amp;lt;logger name=&amp;quot;com.baomidou.mybatisplus.extension.plugins&amp;quot; level=&amp;quot;INFO&amp;quot;/&amp;gt;
+    &amp;lt;logger name=&amp;quot;com.wpt.dcportrait.dao&amp;quot; level=&amp;quot;DEBUG&amp;quot;/&amp;gt;
+
+    &amp;lt;!--默认打开DEBUG日志--&amp;gt;
+    &amp;lt;root level=&amp;quot;${LOG_LEVEL}&amp;quot;&amp;gt;
+        &amp;lt;springProfile name=&amp;quot;dev&amp;quot;&amp;gt;
+            &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot;/&amp;gt;
+        &amp;lt;/springProfile&amp;gt;
+        &amp;lt;springProfile name=&amp;quot;test&amp;quot;&amp;gt;
+            &amp;lt;appender-ref ref=&amp;quot;APPLICATION_FILE&amp;quot;/&amp;gt;
+        &amp;lt;/springProfile&amp;gt;
+        &amp;lt;springProfile name=&amp;quot;prod&amp;quot;&amp;gt;
+            &amp;lt;appender-ref ref=&amp;quot;APPLICATION_FILE&amp;quot;/&amp;gt;
+        &amp;lt;/springProfile&amp;gt;
+    &amp;lt;/root&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;全局异常处理&#34;&gt;全局异常处理&lt;/h1&gt;
+&lt;h1 id=&#34;监听器&#34;&gt;监听器&lt;/h1&gt;
+&lt;h1 id=&#34;拦截器&#34;&gt;拦截器&lt;/h1&gt;
+&lt;h1 id=&#34;spring-boot-aop&#34;&gt;Spring Boot AOP&lt;/h1&gt;
+&lt;h1 id=&#34;集成mybatis-plus&#34;&gt;集成Mybatis-plus&lt;/h1&gt;
+&lt;h1 id=&#34;集成swagger2&#34;&gt;集成Swagger2&lt;/h1&gt;
+&lt;h1 id=&#34;集成redis&#34;&gt;集成Redis&lt;/h1&gt;
+&lt;h1 id=&#34;集成activemq&#34;&gt;集成ActiveMQ&lt;/h1&gt;
+&lt;h1 id=&#34;集成thymeleaf&#34;&gt;集成Thymeleaf&lt;/h1&gt;
+">Spring Boot学习笔记</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/git-shi-yong/"" data-c="

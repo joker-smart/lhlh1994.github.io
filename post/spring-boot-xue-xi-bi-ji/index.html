@@ -8,7 +8,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Blog</title>
+<title>Spring Boot学习笔记 | Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1603539470713">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,6 +38,8 @@
 
 
 
+  <meta name="description" content="Spring Boot学习笔记" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -172,8 +174,24 @@
     <div
       class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -216,55 +234,681 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E5%B7%A5%E7%A8%8B%E6%90%AD%E5%BB%BA">工程搭建</a></li>
+<li><a href="#%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE%E5%B0%86null%E8%BD%AC%E4%B8%BA">返回json数据，将null转为&quot;&quot;</a></li>
+<li><a href="#%E5%B0%81%E8%A3%85%E7%BB%9F%E4%B8%80%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">封装统一返回数据结构</a></li>
+<li><a href="#yml%E9%85%8D%E7%BD%AE">yml配置</a></li>
+<li><a href="#logbackxml%E9%85%8D%E7%BD%AE">logback.xml配置</a></li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">全局异常处理</a></li>
+<li><a href="#%E7%9B%91%E5%90%AC%E5%99%A8">监听器</a></li>
+<li><a href="#%E6%8B%A6%E6%88%AA%E5%99%A8">拦截器</a></li>
+<li><a href="#spring-boot-aop">Spring Boot AOP</a></li>
+<li><a href="#%E9%9B%86%E6%88%90mybatis-plus">集成Mybatis-plus</a></li>
+<li><a href="#%E9%9B%86%E6%88%90swagger2">集成Swagger2</a></li>
+<li><a href="#%E9%9B%86%E6%88%90redis">集成Redis</a></li>
+<li><a href="#%E9%9B%86%E6%88%90activemq">集成ActiveMQ</a></li>
+<li><a href="#%E9%9B%86%E6%88%90thymeleaf">集成Thymeleaf</a></li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box pisces box-shadow-wrapper">
-          <section class="friends-section bg-color slide-down-in">
-            <div class="firends-box">
-              <h1 class="firends-title" itemprop="name headline">友情链接</h1>
-              
-              
-              
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
             </div>
-            <hr>
-            <div style="text-align:center">
-              <span class="with-love">
-                <i class="fa fa-heart"></i>
-              </span>
-              <span class="language" data-lan="leave-message">留言添加友链</span>
-              <span class="with-love">
-                <i class="fa fa-heart"></i>
-              </span>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/">
+      Spring Boot学习笔记
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-10-22 20:18:39">2020-10-22</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>9<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1599<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <h1 id="工程搭建">工程搭建</h1>
+<ul>
+<li>
+<p>JDK选择<br>
+在IDEA 中配置 jdk 的方式很简单，打开<code>File-&gt;Project Structure</code>，如下图所：<br>
+<img src="https://lhlh1994.github.io/post-images/1603369501129.png" alt="" loading="lazy"></p>
+<ol>
+<li>选择 SDKs</li>
+<li>在 JDK home path 中选择本地 jdk 的安装目录</li>
+<li>在 Name 中为 jdk 自定义名字</li>
+</ol>
+</li>
+<li>
+<p>构建Spring Boot工程<br>
+通过<code>File-&gt;New-&gt;Project</code>可以快速构建Spring Boot工程</p>
+<ul>
+<li>Group：填企业域名，本课程使用com.itcodai</li>
+<li>Artifact：填项目名称</li>
+<li>Dependencies：可以添加我们项目中所需要的依赖信息，根据实际情况来添加</li>
+</ul>
+</li>
+<li>
+<p>Maven配置<br>
+创建了 Spring Boot 项目之后，需要进行 maven 配置。打开<code>File-&gt;settings</code>，搜索 maven，配置一下本地的 maven 信息。如下：<br>
+<img src="https://lhlh1994.github.io/post-images/1603369915322.png" alt="" loading="lazy"></p>
+<ol>
+<li>选择本机安装的Maven</li>
+<li>选择公司的setting.xml文件</li>
+<li>自定义Maven下载包的路径<br>
+建议在setting.xml文件中添加，阿里云镜像</li>
+</ol>
+<pre><code class="language-xml">&lt;mirror&gt;
+    &lt;id&gt;nexus-aliyun&lt;/id&gt;
+    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+    &lt;name&gt;Nexus aliyun&lt;/name&gt;
+    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;
+&lt;/mirror&gt;
+</code></pre>
+</li>
+<li>
+<p>编码设置<br>
+<code>File-&gt;settings</code><br>
+<img src="https://lhlh1994.github.io/post-images/1603370132154.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<h1 id="返回json数据将null转为">返回json数据，将null转为&quot;&quot;</h1>
+<ul>
+<li>Jackson</li>
+</ul>
+<pre><code class="language-java">import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.io.IOException;
+
+@Configuration
+public class JacksonConfig {
+    @Bean
+    @Primary
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer&lt;Object&gt;() {
+            @Override
+            public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                jsonGenerator.writeString(&quot;&quot;);
+            }
+        });
+        return objectMapper;
+    }
+}
+</code></pre>
+<ul>
+<li>FastJson</li>
+</ul>
+<pre><code class="language-java">import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
+public class fastJsonConfig extends WebMvcConfigurationSupport {
+
+    /**
+     * 使用阿里 FastJson 作为JSON MessageConverter
+     * @param converters
+     */
+    @Override
+    public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        FastJsonConfig config = new FastJsonConfig();
+        config.setSerializerFeatures(
+                // 保留map空的字段
+                SerializerFeature.WriteMapNullValue,
+                // 将String类型的null转成&quot;&quot;
+                SerializerFeature.WriteNullStringAsEmpty,
+                // 将Number类型的null转成0
+                SerializerFeature.WriteNullNumberAsZero,
+                // 将List类型的null转成[]
+                SerializerFeature.WriteNullListAsEmpty,
+                // 将Boolean类型的null转成false
+                SerializerFeature.WriteNullBooleanAsFalse,
+                // 避免循环引用
+                SerializerFeature.DisableCircularReferenceDetect);
+
+        converter.setFastJsonConfig(config);
+        converter.setDefaultCharset(Charset.forName(&quot;UTF-8&quot;));
+        List&lt;MediaType&gt; mediaTypeList = new ArrayList&lt;&gt;();
+        // 解决中文乱码问题，相当于在Controller上的@RequestMapping中加了个属性produces = &quot;application/json&quot;
+        mediaTypeList.add(MediaType.APPLICATION_JSON);
+        converter.setSupportedMediaTypes(mediaTypeList);
+        converters.add(converter);
+    }
+}
+</code></pre>
+<h1 id="封装统一返回数据结构">封装统一返回数据结构</h1>
+<pre><code class="language-java">import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = &quot;返回结果实体类&quot;)
+public class Result&lt;T&gt; {
+    @ApiModelProperty(value = &quot;状态信息&quot;, example = &quot;success&quot;)
+    private String msg;
+    @ApiModelProperty(value = &quot;状态码&quot;, example = &quot;0&quot;)
+    private int code;
+    @ApiModelProperty(&quot;数据内容&quot;)
+    private T data;
+
+    private Result(T data) {
+        this.code = 0;
+        this.msg = &quot;success&quot;;
+        this.data = data;
+    }
+
+    private Result(CodeMsg cm) {
+        if(cm == null){
+            return;
+        }
+        this.code = cm.getCode();
+        this.msg = cm.getMsg();
+    }
+
+    private Result(CodeMsg cm, String msg) {
+        if(cm == null){
+            return;
+        }
+        this.code = cm.getCode();
+        this.msg = msg;
+    }
+
+    /**
+     * 成功时候的调用
+     * @return
+     */
+    public static &lt;T&gt; Result&lt;T&gt; success(T data){
+        return new Result&lt;T&gt;(data);
+    }
+    /**
+     * 成功，不需要传入参数
+     * @return
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public static &lt;T&gt; Result&lt;T&gt; success(CodeMsg cm){
+        return new Result&lt;T&gt;(cm);
+    }
+    /**
+     * 失败时候的调用
+     * @return
+     */
+    public static &lt;T&gt; Result&lt;T&gt; error(CodeMsg cm){
+        return new Result&lt;T&gt;(cm);
+    }
+    /**
+     * 失败时候的调用,扩展消息参数
+     * @param cm
+     * @param msg
+     * @return
+     */
+    public static &lt;T&gt; Result&lt;T&gt; error(CodeMsg cm,String msg){
+        return new Result&lt;T&gt;(cm, msg);
+    }
+    public T getData() {
+        return data;
+    }
+    public String getMsg() {
+        return msg;
+    }
+    public int getCode() {
+        return code;
+    }
+}
+</code></pre>
+<h1 id="yml配置">yml配置</h1>
+<ul>
+<li>日志配置</li>
+</ul>
+<pre><code class="language-yml">logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    com.xxx.xxx: debug
+</code></pre>
+<ul>
+<li>属性配置</li>
+</ul>
+<pre><code class="language-yml">server:
+  port: 8001
+
+# 配置微服务的地址  获取: 代码中通过@Value获取
+url:
+  # 订单微服务的地址
+  orderUrl: http://localhost:8002
+</code></pre>
+<ul>
+<li>多环境配置</li>
+</ul>
+<pre><code class="language-yml">spring:
+  profiles:
+    active: dev
+</code></pre>
+<ul>
+<li>请求包体大小限制</li>
+</ul>
+<pre><code class="language-yml">servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 1024MB
+</code></pre>
+<h1 id="logbackxml配置">logback.xml配置</h1>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration scan=&quot;true&quot; scanPeriod=&quot;60 seconds&quot;&gt;
+
+    &lt;!--设置变量--&gt;
+    &lt;springProperty scope=&quot;context&quot; name=&quot;LOG_HOME&quot; source=&quot;logging.path&quot;/&gt;
+    &lt;springProperty scope=&quot;context&quot; name=&quot;LOG_LEVEL&quot; source=&quot;logging.pattern.level&quot;/&gt;
+
+    &lt;!--日志输出格式--&gt;
+    &lt;property name=&quot;LOG.PATTERN&quot; value=&quot;%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{catRootId}] %-5level %logger{30} - %msg%n&quot;/&gt;
+
+    &lt;!-- 日志文件大小--&gt;
+    &lt;property name=&quot;LOG_MAX_SIZE&quot; value=&quot;1024MB&quot;/&gt;
+
+    &lt;!-- 日志文件保留天数、最多允许占用的磁盘空间--&gt;
+    &lt;property name=&quot;LOG_MAX_HISTORY&quot; value=&quot;10&quot;/&gt;
+    &lt;property name=&quot;LOG_TOTAL_SIZE_CAP&quot; value=&quot;10GB&quot;/&gt;
+
+    &lt;!-- DEBUG日志文件保留天数、最多允许占用的磁盘空间--&gt;
+    &lt;property name=&quot;DEBUG_LOG_MAX_HISTORY&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;DEBUG_LOG_TOTAL_SIZE_CAP&quot; value=&quot;10GB&quot;/&gt;
+
+    &lt;!--基于窗口大小的滚动策略 最多允许几个日志文件--&gt;
+    &lt;property name=&quot;FIXED_WINDOWS_ROLLING_MIN_INDEX&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;FIXED_WINDOWS_ROLLING_MAX_INDEX&quot; value=&quot;3&quot;/&gt;
+
+    &lt;!--应用日志，保留LOG_MAX_HISTORY天，最多占用LOG_TOTAL_SIZE_CAP空间--&gt;
+    &lt;appender name=&quot;APPLICATION_FILE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;File&gt;${LOG_HOME}/application.log&lt;/File&gt;
+        &lt;!-- 过滤器，只记录级别大于等于INFO的日志 --&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;TRACE&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;FileNamePattern&gt;${LOG_HOME}/backup/application.%d{yyyy-MM-dd}.%i.log.zip&lt;/FileNamePattern&gt;
+            &lt;maxFileSize&gt;${LOG_MAX_SIZE}&lt;/maxFileSize&gt;
+            &lt;maxHistory&gt;${LOG_MAX_HISTORY}&lt;/maxHistory&gt;
+            &lt;totalSizeCap&gt;${LOG_TOTAL_SIZE_CAP}&lt;/totalSizeCap&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder class=&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;&gt;
+            &lt;pattern&gt;${LOG.PATTERN}&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;!--控制台输出--&gt;
+    &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;TRACE&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;encoder class=&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;&gt;
+            &lt;pattern&gt;${LOG.PATTERN}&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;logger name=&quot;org.springframework&quot; level=&quot;WARN&quot;/&gt;
+    &lt;logger name=&quot;org.mybatis.spring&quot; level=&quot;WARN&quot;/&gt;
+    &lt;logger name=&quot;com.zaxxer.hikari&quot; level=&quot;INFO&quot;/&gt;
+    &lt;logger name=&quot;springfox&quot; level=&quot;WARN&quot;/&gt;
+    &lt;logger name=&quot;com.baomidou.mybatisplus.extension.plugins&quot; level=&quot;INFO&quot;/&gt;
+    &lt;logger name=&quot;com.wpt.dcportrait.dao&quot; level=&quot;DEBUG&quot;/&gt;
+
+    &lt;!--默认打开DEBUG日志--&gt;
+    &lt;root level=&quot;${LOG_LEVEL}&quot;&gt;
+        &lt;springProfile name=&quot;dev&quot;&gt;
+            &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;
+        &lt;/springProfile&gt;
+        &lt;springProfile name=&quot;test&quot;&gt;
+            &lt;appender-ref ref=&quot;APPLICATION_FILE&quot;/&gt;
+        &lt;/springProfile&gt;
+        &lt;springProfile name=&quot;prod&quot;&gt;
+            &lt;appender-ref ref=&quot;APPLICATION_FILE&quot;/&gt;
+        &lt;/springProfile&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h1 id="全局异常处理">全局异常处理</h1>
+<h1 id="监听器">监听器</h1>
+<h1 id="拦截器">拦截器</h1>
+<h1 id="spring-boot-aop">Spring Boot AOP</h1>
+<h1 id="集成mybatis-plus">集成Mybatis-plus</h1>
+<h1 id="集成swagger2">集成Swagger2</h1>
+<h1 id="集成redis">集成Redis</h1>
+<h1 id="集成activemq">集成ActiveMQ</h1>
+<h1 id="集成thymeleaf">集成Thymeleaf</h1>
+
             </div>
-            <hr>
-            <div class="friends-note">
-              <p><strong class="language" data-lan="format">友链格式：</strong></p>
-              <ul>
-                <li><span class="language" data-lan="site-name">网站名称：</span>Blog</li>
-                <li><span class="language" data-lan="site-link">网站地址：</span><a href="https://lhlh1994.github.io" data-pjax-state="">https://lhlh1994.github.io</a></li>
-                <li><span class="language" data-lan="site-desc">网站描述：</span>温故而知新</li>
-                <li><span class="language" data-lan="site-img">网站头像：</span>
-                  <a href="https://lhlh1994.github.io/images/avatar.png">https://lhlh1994.github.io/images/avatar.png</a>
-                </li>
-              </ul>
-            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      老黑W
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/" title="Spring Boot学习笔记">https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="Git使用" href="https://lhlh1994.github.io/post/git-shi-yong/">Git使用</a>
+        <a class="nav-mobile-next" title="Git使用" href="https://lhlh1994.github.io/post/git-shi-yong/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
             
   
 
-          </section>
+          </div>
         </div>
       </div>
     </div>
@@ -451,6 +1095,253 @@
   }
 
 </script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px;border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
   </div>
 </body>
 
@@ -2536,7 +3427,6 @@ sql语句：
 
 
 <script src="/media/js/mouse/love.js"></script>
-
 
 
 
