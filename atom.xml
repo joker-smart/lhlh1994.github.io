@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lhlh1994.github.io</id>
     <title>Blog</title>
-    <updated>2020-10-24T14:53:01.893Z</updated>
+    <updated>2020-10-24T14:55:24.147Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lhlh1994.github.io"/>
     <link rel="self" href="https://lhlh1994.github.io/atom.xml"/>
@@ -1337,7 +1337,11 @@ sed: s 替换 s/old/new/g 默认\t分隔
         <link href="https://lhlh1994.github.io/post/dolphinscheduler-bu-shu/">
         </link>
         <updated>2020-10-20T08:12:24.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="dolphinscheduler部署文档集群版">dolphinscheduler部署文档（集群版）</h1>
+        <summary type="html"><![CDATA[<p>ds1.2.0部署文档</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>ds1.2.0部署文档</p>
+<!-- more -->
+<h1 id="dolphinscheduler部署文档集群版">dolphinscheduler部署文档（集群版）</h1>
 <h2 id="集群规划">集群规划</h2>
 <h3 id="ds集群生产配置">ds集群（生产配置）</h3>
 <table>
