@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lhlh1994.github.io</id>
     <title>Blog</title>
-    <updated>2020-10-24T14:55:24.147Z</updated>
+    <updated>2020-10-25T08:24:32.116Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lhlh1994.github.io"/>
     <link rel="self" href="https://lhlh1994.github.io/atom.xml"/>
@@ -737,6 +737,177 @@ public class ChannelFilter implements Filter {
     }
 </code></pre>
 <h1 id="spring-boot-aop">Spring Boot AOP</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[设计模式]]></title>
+        <id>https://lhlh1994.github.io/post/she-ji-mo-shi/</id>
+        <link href="https://lhlh1994.github.io/post/she-ji-mo-shi/">
+        </link>
+        <updated>2020-10-22T03:48:33.000Z</updated>
+        <summary type="html"><![CDATA[<p>Java的23种设计模式，逐渐完善中</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Java的23种设计模式，逐渐完善中</p>
+<!-- more -->
+<h1 id="设计模式分类">设计模式分类</h1>
+<figure data-type="image" tabindex="1"><img src="https://lhlh1994.github.io/post-images/1603352615759.png" alt="" loading="lazy"></figure>
+<h1 id="代理模式">代理模式</h1>
+<p><strong>接口</strong></p>
+<pre><code class="language-java">public interface HelloService {
+    void sayHello();
+}
+</code></pre>
+<p><strong>接口实现</strong></p>
+<pre><code class="language-java">public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println(&quot;Hello World!&quot;);
+    }
+}
+</code></pre>
+<h2 id="静态代理">静态代理</h2>
+<blockquote>
+<p>静态代理代理类在编译期就生成，静态代理代码冗余大，一但需要修改接口，代理类和委托类都需要修改。</p>
+</blockquote>
+<pre><code class="language-java">public class HelloServiceStaticProxy implements HelloService {
+    private HelloService helloService;
+    public HelloServiceStaticProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    @Override
+    public void sayHello() {
+        System.out.println(&quot;Before say hello...&quot;);
+        helloService.sayHello();
+        System.out.println(&quot;After say hello...&quot;);
+    }
+
+    // 测试
+    public static void main(String[] args) {
+        HelloServiceStaticProxy helloServiceStaticProxy = new HelloServiceStaticProxy(new HelloServiceImpl());
+        helloServiceStaticProxy.sayHello();
+    }
+}
+</code></pre>
+<h2 id="动态代理">动态代理</h2>
+<blockquote>
+<p>Java中的动态代理代理类在JVM运行时动态生成，依靠反射来实现，委托类需要实现接口。<br>
+Java动态代理主要涉及到两个类：java.lang.reflect.Proxy和java.lang.reflect.InvocationHandler。<br>
+代理类需要实现InvocationHandler接口或者创建匿名内部类。</p>
+</blockquote>
+<pre><code class="language-java">public class HelloServiceDynamicProxy {
+    private HelloService helloService;
+    public HelloServiceDynamicProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    public Object getProxyInstance() {
+        return Proxy.newProxyInstance(helloService.getClass().getClassLoader(), helloService.getClass().getInterfaces(), new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                System.out.println(&quot;Before say hello...&quot;);
+                Object ret = method.invoke(helloService, args);
+                System.out.println(&quot;After say hello...&quot;);
+                return ret;
+            }
+        });
+    }
+
+    public static void main(String[] args){
+        HelloService helloService = new HelloServiceImpl();
+        HelloService dynamicProxy = (HelloService) new HelloServiceDynamicProxy(helloService).getProxyInstance();
+        dynamicProxy.sayHello();
+    }
+}
+</code></pre>
+<h1 id="单例模式">单例模式</h1>
+<h2 id="饿汉式">饿汉式</h2>
+<blockquote>
+<p>饿汉式单例，随着项目的启动就已经创建类</p>
+</blockquote>
+<pre><code class="language-java">public class HungerSingle {
+
+    private HungerSingle() {}
+    private static HungerSingle single = new HungerSingle();
+    public static HungerSingle getInstance() {
+        return single;
+    }
+
+    public static void main(String[] args) {
+        HungerSingle instance = HungerSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="懒汉式">懒汉式</h2>
+<blockquote>
+<p>懒汉式单例，用到时候才创建<br>
+懒汉式存在多线程安全问题，因此每次调用的时候都需要加锁判断，效率较低</p>
+</blockquote>
+<pre><code class="language-java">public class LazySingle {
+    private LazySingle() {
+    }
+    private static LazySingle single = null;
+    public static synchronized LazySingle getInstance () {    //加锁同步安全
+        if (single == null) {
+            single = new LazySingle();
+        }
+        return single;
+    }
+    public static void main(String[] args) {
+        LazySingle instance = LazySingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="双重检查懒汉式">双重检查懒汉式</h2>
+<blockquote>
+<p>为了解决懒汉式效率问题，引入了双重检查机制，以提升效率</p>
+</blockquote>
+<pre><code class="language-java">public class DoubleCheckSingle {
+    private DoubleCheckSingle() {
+    }
+    private static DoubleCheckSingle single = null;
+    public static DoubleCheckSingle getInstance () {
+        //1. 先检查实例是否存在，如果不存在才进入下面的同步块
+        if (single == null) {
+            synchronized (DoubleCheckSingle.class){
+                //2. 可能会有多个线程进入1判断，需要再次检查实例是否存在，如果不存在才真正的创建实例
+                if(single == null){
+                    single = new DoubleCheckSingle();
+                }
+            }
+        }
+        return single;
+    }
+
+    public static void main(String[] args) {
+        DoubleCheckSingle instance = DoubleCheckSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="静态内部类懒汉式">静态内部类懒汉式</h2>
+<blockquote>
+<p>除了双重检查机制之外还可以使用静态内部类的特点（只有在出现它的引用时才被加载），完成懒加载</p>
+</blockquote>
+<pre><code class="language-java">public class LazyMultithreadingSingle {
+    private LazyMultithreadingSingle(){}
+    public static LazyMultithreadingSingle getInstance(){
+        return SingleHolder.instance;
+    }
+    private static class SingleHolder{
+        public static LazyMultithreadingSingle instance = new LazyMultithreadingSingle();
+    }
+
+    public static void main(String[] args) {
+        LazyMultithreadingSingle instance = LazyMultithreadingSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<p>相关连接<br>
+https://www.cnblogs.com/pony1223/p/7608955.html<br>
+https://www.cnblogs.com/pony1223/p/7594803.html<br>
+http://c.biancheng.net/design_pattern/</p>
 ]]></content>
     </entry>
     <entry>

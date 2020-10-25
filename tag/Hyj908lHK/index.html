@@ -5,11 +5,11 @@
   <meta charset="UTF-8" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="">
+<meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603539470713">
+<link rel="shortcut icon" href="/favicon.ico?v=1603614102374">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -184,19 +184,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">5</span>
+        <span class="site-item-stat-count">7</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">5</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">5</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -249,16 +249,24 @@
       
       
       
-      <a href="https://lhlh1994.github.io/post/git-shi-yong/">
+      
+      
+      
+      
+      <a href="https://lhlh1994.github.io/post/she-ji-mo-shi/">
         <div class="motion-warpper">
           <div class="tag-post-node">
             <h1>
-              10-21
-              <small>Git使用</small>
+              10-22
+              <small>设计模式</small>
             </h1>
           </div>
         </div>
       </a>
+      
+      
+      
+      
       
       
       
@@ -483,11 +491,176 @@
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/spring-boot-ji-cheng/"" data-c="
+          &lt;p&gt;Spring Boot与其他框架的集成&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;集成mybatis-plus&#34;&gt;集成Mybatis-plus&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mybatis-plus-boot-starter&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;3.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;yml配置&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;spring:
+  datasource: # 数据库配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/portrait?useSSL=false&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;allowMultiQueries=true&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;maxReconnects=10&amp;amp;rewriteBatchedStatements=true
+    username: root
+    password: root
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      maximum-pool-size: 20
+      max-lifetime: 60000
+      minimum-idle: 5
+      idle-timeout: 30000
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mapper/*.xml
+  # 以下配置均有默认值,可以不设置
+  global-config:
+    db-config:
+      #主键类型 AUTO:&amp;quot;数据库ID自增&amp;quot; INPUT:&amp;quot;用户输入ID&amp;quot;,ID_WORKER:&amp;quot;全局唯一ID (数字类型唯一ID)&amp;quot;, UUID:&amp;quot;全局唯一ID UUID&amp;quot;;
+      id-type: auto
+  configuration:
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印在控制台，在开发或测试的时候可以用。生产环境需要注释掉，否则debug日志将打印不出来
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;插件&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MybatisPlusConfig {
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;注解&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@TableName(&amp;quot;user_info&amp;quot;)   对应数据库中的表名&lt;/li&gt;
+&lt;li&gt;@TableId(type = IdType.AUTO)     指定id字段&lt;/li&gt;
+&lt;li&gt;@TableLogic(value = &amp;quot;0&amp;quot;, delval = &amp;quot;1&amp;quot;)   指定逻辑删除字段    0: 未删除 1: 删除&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要在Application类中添加注解 @MapperScan(basePackages = {&amp;quot;com.wpt.dc.portrait.models.*.dao&amp;quot;})&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;dao&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface UserInfoMapper extends BaseMapper&amp;lt;UserInfo&amp;gt; {
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;service&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface UserInfoService extends IService&amp;lt;UserInfo&amp;gt; {
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;serviceimpl&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Service
+public class GroupInfoServiceImpl extends ServiceImpl&amp;lt;GroupInfoMapper, GroupInfo&amp;gt; implements GroupInfoService {
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;集成swagger2&#34;&gt;集成Swagger2&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.github.xiaoymin&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;knife4j-spring-boot-starter&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.0.4&amp;lt;/version&amp;gt;
+    &amp;lt;exclusions&amp;gt;
+        &amp;lt;exclusion&amp;gt;
+            &amp;lt;groupId&amp;gt;com.google.guava&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;guava&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/exclusion&amp;gt;
+    &amp;lt;/exclusions&amp;gt;
+&amp;lt;/dependency&amp;gt;
+
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.google.guava&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;guava&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;23.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;配置&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package com.wpt.dc.portrait.config;
+
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@Configuration
+@EnableSwagger2
+@EnableKnife4j
+@Import(BeanValidatorPluginsConfiguration.class)
+public class SwaggerConfig {
+
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                // 指定构建api文档的详细信息的方法：apiInfo()
+                .apiInfo(apiInfo())
+                .select()
+                // 指定要生成api接口的包路径，这里把controller作为包路径，生成controller中的所有接口
+                .apis(RequestHandlerSelectors.basePackage(&amp;quot;com.wpt.dc.portrait&amp;quot;))
+                .paths(PathSelectors.any())
+                .build();
+    }
+    /**
+     * 构建api文档的详细信息
+     * @return
+     */
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                // 设置页面标题
+                .title(&amp;quot;数据中台API文档&amp;quot;)
+                // 设置接口描述
+                .description(&amp;quot;数据中台API文档&amp;quot;)
+                // 设置版本
+                .version(&amp;quot;1.0&amp;quot;)
+                // 构建
+                .build();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;注解&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@Api(&amp;quot;控制层&amp;quot;)&lt;/li&gt;
+&lt;li&gt;@ApiOperation(&amp;quot;接口名称&amp;quot;)&lt;/li&gt;
+&lt;li&gt;@Apimodel(&amp;quot;实体类&amp;quot;)&lt;/li&gt;
+&lt;li&gt;@ApiModelProperty(&amp;quot;实体类属性&amp;quot;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;集成redis&#34;&gt;集成Redis&lt;/h1&gt;
+&lt;h1 id=&#34;集成activemq&#34;&gt;集成ActiveMQ&lt;/h1&gt;
+&lt;h1 id=&#34;集成thymeleaf&#34;&gt;集成Thymeleaf&lt;/h1&gt;
+">Spring Boot集成</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/"" data-c="
-          &lt;h1 id=&#34;工程搭建&#34;&gt;工程搭建&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;JDK选择&lt;br&gt;
+          &lt;p&gt;从零到一搭建Spring Boot企业级开发环境&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;工程搭建&#34;&gt;工程搭建&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;JDK选择&lt;/strong&gt;&lt;br&gt;
 在IDEA 中配置 jdk 的方式很简单，打开&lt;code&gt;File-&amp;gt;Project Structure&lt;/code&gt;，如下图所：&lt;br&gt;
 &lt;img src=&#34;https://lhlh1994.github.io/post-images/1603369501129.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -495,18 +668,14 @@
 &lt;li&gt;在 JDK home path 中选择本地 jdk 的安装目录&lt;/li&gt;
 &lt;li&gt;在 Name 中为 jdk 自定义名字&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;构建Spring Boot工程&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;构建Spring Boot工程&lt;/strong&gt;&lt;br&gt;
 通过&lt;code&gt;File-&amp;gt;New-&amp;gt;Project&lt;/code&gt;可以快速构建Spring Boot工程&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Group：填企业域名，本课程使用com.itcodai&lt;/li&gt;
 &lt;li&gt;Artifact：填项目名称&lt;/li&gt;
 &lt;li&gt;Dependencies：可以添加我们项目中所需要的依赖信息，根据实际情况来添加&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Maven配置&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Maven配置&lt;/strong&gt;&lt;br&gt;
 创建了 Spring Boot 项目之后，需要进行 maven 配置。打开&lt;code&gt;File-&amp;gt;settings&lt;/code&gt;，搜索 maven，配置一下本地的 maven 信息。如下：&lt;br&gt;
 &lt;img src=&#34;https://lhlh1994.github.io/post-images/1603369915322.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -522,17 +691,11 @@
     &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public&amp;lt;/url&amp;gt;
 &amp;lt;/mirror&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;编码设置&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;编码设置&lt;/strong&gt;&lt;br&gt;
 &lt;code&gt;File-&amp;gt;settings&lt;/code&gt;&lt;br&gt;
 &lt;img src=&#34;https://lhlh1994.github.io/post-images/1603370132154.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h1 id=&#34;返回json数据将null转为&#34;&gt;返回json数据，将null转为&amp;quot;&amp;quot;&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Jackson&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Jackson&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -562,9 +725,7 @@ public class JacksonConfig {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;FastJson&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;FastJson&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -690,17 +851,13 @@ public class Result&amp;lt;T&amp;gt; {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;yml配置&#34;&gt;yml配置&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;日志配置&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;日志配置&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;logging:
   config: classpath:config/logback-spring.xml
   level:
     com.xxx.xxx: debug
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;属性配置&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;属性配置&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;server:
   port: 8001
 
@@ -709,16 +866,12 @@ url:
   # 订单微服务的地址
   orderUrl: http://localhost:8002
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;多环境配置&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;多环境配置&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;spring:
   profiles:
     active: dev
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;请求包体大小限制&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;请求包体大小限制&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;servlet:
     multipart:
       max-file-size: 50MB
@@ -800,20 +953,433 @@ url:
 &amp;lt;/configuration&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;全局异常处理&#34;&gt;全局异常处理&lt;/h1&gt;
-&lt;h1 id=&#34;监听器&#34;&gt;监听器&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;定义业务异常类&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.wpt.dccommon.base.CodeMsg;
+public class BusinessException extends RuntimeException {
+    private CodeMsg codeMsg;
+    public BusinessException() {
+    }
+
+    public BusinessException(CodeMsg codeMsg) {
+        super(codeMsg.getMsg());
+        this.codeMsg = codeMsg;
+    }
+
+    public CodeMsg getCodeMsg() {
+        return codeMsg;
+    }
+
+    public void setCodeMsg(CodeMsg codeMsg) {
+        this.codeMsg = codeMsg;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;处理全局异常&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.dtflys.forest.exceptions.ForestNetworkException;
+import com.wpt.dccommon.base.CodeMsg;
+import com.wpt.dccommon.base.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+    * 参数校验
+    */
+    @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; handleBindException(Exception ex){
+        List&amp;lt;String&amp;gt; defaultMsg;
+        if(ex instanceof BindException){
+            defaultMsg = ((BindException) ex).getBindingResult().getAllErrors()
+                    .stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+        } else {
+            defaultMsg = ((MethodArgumentNotValidException) ex).getBindingResult().getAllErrors()
+                    .stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+        }
+        LOG.error(&amp;quot;参数校验异常 {}&amp;quot;, defaultMsg.get(0));
+        return Result.error(CodeMsg.PARAMETER_VALID_FAILED, defaultMsg.get(0));
+    }
+
+    /**
+    * 拦截必填参数未填异常
+    * @author liuh
+    * @date 2020/9/3 3:40 下午
+    * @return com.wpt.dccommon.base.Result&amp;lt;com.wpt.dccommon.base.CodeMsg&amp;gt;
+    */
+    @ExceptionHandler(
+            value = {MissingServletRequestParameterException.class, HttpMessageNotReadableException.class}
+    )
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; missingParameterException(Exception ex){
+        String message = ex.getMessage();
+        LOG.error(&amp;quot;参数未找到：{}&amp;quot;, message);
+        return Result.error(CodeMsg.PARAMETER_ISNULL);
+    }
+
+
+    /**
+    * 单个参数校验
+    */
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; handleBindGetException(ConstraintViolationException ex){
+        List&amp;lt;String&amp;gt; defaultMsg = ex.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+        LOG.error(&amp;quot;参数校验异常：{}&amp;quot;, defaultMsg.get(0));
+        return Result.error(CodeMsg.PARAMETER_VALID_FAILED, defaultMsg.get(0));
+    }
+
+    /**
+    * 拦截系统异常
+    */
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; systemException (Exception e) {
+        LOG.error(&amp;quot;系统异常: &amp;quot;, e);
+        return Result.error(CodeMsg.SYSTEM_ERROR);
+    }
+
+
+    /**
+    * 拦截业务
+    */
+    @ExceptionHandler(BusinessException.class)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; businessException (BusinessException ex) {
+        LOG.error(&amp;quot;业务异常: {}&amp;quot;, ex.getCodeMsg().getMsg());
+        CodeMsg codeMsg = ex.getCodeMsg();
+        return Result.error(codeMsg);
+    }
+
+    /**
+    * 拦截http调用异常
+    */
+    @ExceptionHandler(ForestNetworkException.class)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; forestNetworkException (ForestNetworkException ex) {
+        LOG.error(&amp;quot;http调用异常: &amp;quot;, ex);
+        return Result.error(CodeMsg.THIRD_HTTP_ERROR);
+    }
+
+    /**
+    * 请求方式不正确异常
+    */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; httpRequestMethodNotSupportedException (HttpRequestMethodNotSupportedException ex) {
+        LOG.error(&amp;quot;请求方式不正确: &amp;quot;, ex);
+        return Result.error(CodeMsg.HTTP_METHOD_ERROR);
+    }
+
+    /**
+    * 空指针异常
+    */
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseBody
+    public Result&amp;lt;CodeMsg&amp;gt; nullPointerException (NullPointerException ex) {
+        LOG.error(&amp;quot;空指针异常: &amp;quot;, ex);
+        return Result.error(CodeMsg.NULL_POINTER_EXCEPTION);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;拦截器&#34;&gt;拦截器&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;自定义拦截器&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.databind.JsonNode;
+import com.wpt.dc.portrait.exception.BusinessException;
+import com.wpt.dc.portrait.utils.RequestWrapper;
+import com.wpt.dccommon.base.CodeMsg;
+import org.apache.http.entity.ContentType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class AuthInterceptor implements HandlerInterceptor {
+    private static final Logger LOG = LoggerFactory.getLogger(AuthInterceptor.class);
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+        // 进入方案前的拦截，可以做一些登录、权限校验
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+        //log.info(&amp;quot;执行完方法之后进执行(Controller方法调用之后)，但是此时还没进行视图渲染&amp;quot;);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        //log.info(&amp;quot;整个请求都处理完咯，DispatcherServlet也渲染了对应的视图咯，此时我可以做一些清理的工作了&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;配置自定义拦截器&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.wpt.dc.portrait.interceptor.AuthInterceptor;
+import com.wpt.dc.portrait.interceptor.PostDataInterceptor;
+import com.wpt.dc.portrait.interceptor.SSOInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class InterceptorConfig implements WebMvcConfigurer {
+    @Bean
+    public SSOInterceptor ssoInterceptor() {
+        return new SSOInterceptor();
+    }
+
+    @Bean
+    public AuthInterceptor authInterceptor() {
+        return new AuthInterceptor();
+    }
+
+    @Bean
+    PostDataInterceptor postDataInterceptor() { return new PostDataInterceptor();}
+
+
+    @Override
+
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(postDataInterceptor());
+        // 添加需要拦截的拦截器(可以配置多个)，已经需要拦截的路径和需要过滤的路径
+        registry.addInterceptor(ssoInterceptor())
+                .addPathPatterns(&amp;quot;/**&amp;quot;)
+                .excludePathPatterns(&amp;quot;/groupOpenApi/*&amp;quot;, &amp;quot;/notify/*&amp;quot;, &amp;quot;/source/importMetaData&amp;quot;);
+        registry.addInterceptor(authInterceptor())
+                .addPathPatterns(&amp;quot;/**&amp;quot;)
+                .excludePathPatterns(&amp;quot;/info&amp;quot;, &amp;quot;/groupOpenApi/*&amp;quot;, &amp;quot;//info&amp;quot;, &amp;quot;/info/debug&amp;quot;, &amp;quot;/notify/*&amp;quot;, &amp;quot;/source/importMetaData&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;过滤器&#34;&gt;过滤器&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.wpt.dc.portrait.utils.RequestWrapper;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+
+// 获取请求参数，要想获取post的请求参数需要用这种方式
+@WebFilter(urlPatterns = &amp;quot;*&amp;quot;, filterName = &amp;quot;channelFilter&amp;quot;)
+public class ChannelFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        ServletRequest requestWrapper = null;
+        if (request instanceof HttpServletRequest) {
+            requestWrapper = new RequestWrapper((HttpServletRequest) request);
+        }
+        if (requestWrapper == null) {
+            chain.doFilter(request, response);
+        } else {
+            chain.doFilter(requestWrapper, response);
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;spring-boot-aop&#34;&gt;Spring Boot AOP&lt;/h1&gt;
-&lt;h1 id=&#34;集成mybatis-plus&#34;&gt;集成Mybatis-plus&lt;/h1&gt;
-&lt;h1 id=&#34;集成swagger2&#34;&gt;集成Swagger2&lt;/h1&gt;
-&lt;h1 id=&#34;集成redis&#34;&gt;集成Redis&lt;/h1&gt;
-&lt;h1 id=&#34;集成activemq&#34;&gt;集成ActiveMQ&lt;/h1&gt;
-&lt;h1 id=&#34;集成thymeleaf&#34;&gt;集成Thymeleaf&lt;/h1&gt;
 ">Spring Boot学习笔记</a>
       </div>
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/she-ji-mo-shi/"" data-c="
+          &lt;p&gt;Java的23种设计模式，逐渐完善中&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;设计模式分类&#34;&gt;设计模式分类&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://lhlh1994.github.io/post-images/1603352615759.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;代理模式&#34;&gt;代理模式&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;接口&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface HelloService {
+    void sayHello();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;接口实现&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println(&amp;quot;Hello World!&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;静态代理&#34;&gt;静态代理&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;静态代理代理类在编译期就生成，静态代理代码冗余大，一但需要修改接口，代理类和委托类都需要修改。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HelloServiceStaticProxy implements HelloService {
+    private HelloService helloService;
+    public HelloServiceStaticProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    @Override
+    public void sayHello() {
+        System.out.println(&amp;quot;Before say hello...&amp;quot;);
+        helloService.sayHello();
+        System.out.println(&amp;quot;After say hello...&amp;quot;);
+    }
+
+    // 测试
+    public static void main(String[] args) {
+        HelloServiceStaticProxy helloServiceStaticProxy = new HelloServiceStaticProxy(new HelloServiceImpl());
+        helloServiceStaticProxy.sayHello();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;动态代理&#34;&gt;动态代理&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Java中的动态代理代理类在JVM运行时动态生成，依靠反射来实现，委托类需要实现接口。&lt;br&gt;
+Java动态代理主要涉及到两个类：java.lang.reflect.Proxy和java.lang.reflect.InvocationHandler。&lt;br&gt;
+代理类需要实现InvocationHandler接口或者创建匿名内部类。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HelloServiceDynamicProxy {
+    private HelloService helloService;
+    public HelloServiceDynamicProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    public Object getProxyInstance() {
+        return Proxy.newProxyInstance(helloService.getClass().getClassLoader(), helloService.getClass().getInterfaces(), new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                System.out.println(&amp;quot;Before say hello...&amp;quot;);
+                Object ret = method.invoke(helloService, args);
+                System.out.println(&amp;quot;After say hello...&amp;quot;);
+                return ret;
+            }
+        });
+    }
+
+    public static void main(String[] args){
+        HelloService helloService = new HelloServiceImpl();
+        HelloService dynamicProxy = (HelloService) new HelloServiceDynamicProxy(helloService).getProxyInstance();
+        dynamicProxy.sayHello();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;单例模式&#34;&gt;单例模式&lt;/h1&gt;
+&lt;h2 id=&#34;饿汉式&#34;&gt;饿汉式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;饿汉式单例，随着项目的启动就已经创建类&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HungerSingle {
+
+    private HungerSingle() {}
+    private static HungerSingle single = new HungerSingle();
+    public static HungerSingle getInstance() {
+        return single;
+    }
+
+    public static void main(String[] args) {
+        HungerSingle instance = HungerSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;懒汉式&#34;&gt;懒汉式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;懒汉式单例，用到时候才创建&lt;br&gt;
+懒汉式存在多线程安全问题，因此每次调用的时候都需要加锁判断，效率较低&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class LazySingle {
+    private LazySingle() {
+    }
+    private static LazySingle single = null;
+    public static synchronized LazySingle getInstance () {    //加锁同步安全
+        if (single == null) {
+            single = new LazySingle();
+        }
+        return single;
+    }
+    public static void main(String[] args) {
+        LazySingle instance = LazySingle.getInstance();
+        System.out.println(instance);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;双重检查懒汉式&#34;&gt;双重检查懒汉式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了解决懒汉式效率问题，引入了双重检查机制，以提升效率&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class DoubleCheckSingle {
+    private DoubleCheckSingle() {
+    }
+    private static DoubleCheckSingle single = null;
+    public static DoubleCheckSingle getInstance () {
+        //1. 先检查实例是否存在，如果不存在才进入下面的同步块
+        if (single == null) {
+            synchronized (DoubleCheckSingle.class){
+                //2. 可能会有多个线程进入1判断，需要再次检查实例是否存在，如果不存在才真正的创建实例
+                if(single == null){
+                    single = new DoubleCheckSingle();
+                }
+            }
+        }
+        return single;
+    }
+
+    public static void main(String[] args) {
+        DoubleCheckSingle instance = DoubleCheckSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;静态内部类懒汉式&#34;&gt;静态内部类懒汉式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;除了双重检查机制之外还可以使用静态内部类的特点（只有在出现它的引用时才被加载），完成懒加载&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class LazyMultithreadingSingle {
+    private LazyMultithreadingSingle(){}
+    public static LazyMultithreadingSingle getInstance(){
+        return SingleHolder.instance;
+    }
+    private static class SingleHolder{
+        public static LazyMultithreadingSingle instance = new LazyMultithreadingSingle();
+    }
+
+    public static void main(String[] args) {
+        LazyMultithreadingSingle instance = LazyMultithreadingSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;相关连接&lt;br&gt;
+https://www.cnblogs.com/pony1223/p/7608955.html&lt;br&gt;
+https://www.cnblogs.com/pony1223/p/7594803.html&lt;br&gt;
+http://c.biancheng.net/design_pattern/&lt;/p&gt;
+">设计模式</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/git-shi-yong/"" data-c="
-          &lt;h1 id=&#34;git-命令速查&#34;&gt;git 命令速查&lt;/h1&gt;
+          &lt;p&gt;Git常用命令，以及使用方式&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;git-命令速查&#34;&gt;git 命令速查&lt;/h1&gt;
 &lt;p&gt;git branch 查看本地所有分支&lt;br&gt;
 git status 查看当前状态&lt;br&gt;
 git commit 提交&lt;br&gt;
@@ -888,7 +1454,9 @@ git push -f
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/linux-ji-ben-ming-ling/"" data-c="
-          &lt;ol&gt;
+          &lt;p&gt;Linux的常用命令&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;进入文件夹&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;cd /home    # 进入/home目录
@@ -1087,7 +1655,9 @@ docker exec -it 进程号（服务名）bash # 进入docker服务
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/mysql-ji-chu/"" data-c="
-          &lt;h1 id=&#34;mysql基本操作&#34;&gt;mysql基本操作&lt;/h1&gt;
+          &lt;p&gt;包含Mysql基本命令，函数，存储引擎介绍，事务，锁等知识&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;mysql基本操作&#34;&gt;mysql基本操作&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;查看表结构    &lt;code&gt;desc 表名 或者 describe 表名&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;查看表详细结构语句    &lt;code&gt;show create table 表名&lt;/code&gt;&lt;/li&gt;
@@ -1384,7 +1954,9 @@ sed: s 替换 s/old/new/g 默认\t分隔
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://lhlh1994.github.io/post/dolphinscheduler-bu-shu/"" data-c="
-          &lt;h1 id=&#34;dolphinscheduler部署文档集群版&#34;&gt;dolphinscheduler部署文档（集群版）&lt;/h1&gt;
+          &lt;p&gt;ds1.2.0部署文档&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;dolphinscheduler部署文档集群版&#34;&gt;dolphinscheduler部署文档（集群版）&lt;/h1&gt;
 &lt;h2 id=&#34;集群规划&#34;&gt;集群规划&lt;/h2&gt;
 &lt;h3 id=&#34;ds集群生产配置&#34;&gt;ds集群（生产配置）&lt;/h3&gt;
 &lt;table&gt;
@@ -2547,8 +3119,6 @@ sql语句：
   });
 </script>
 
-
-<script src="/media/js/mouse/love.js"></script>
 
 
 

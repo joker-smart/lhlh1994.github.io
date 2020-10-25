@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Git使用 | Blog</title>
+<title>设计模式 | Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1603614102374">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="Git使用" />
-  <meta name="keywords" content="git" />
+  <meta name="description" content="设计模式" />
+  <meta name="keywords" content="java" />
 </head>
 
 <body>
@@ -240,11 +240,19 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#git-%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5">git 命令速查</a></li>
-<li><a href="#%E5%90%88%E5%B9%B6%E5%A4%9A%E6%AC%A1commit">合并多次commit</a>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB">设计模式分类</a></li>
+<li><a href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F">代理模式</a>
 <ul>
-<li><a href="#reset%E5%90%88%E5%B9%B6%E6%8E%A8%E8%8D%90">reset合并（推荐）</a></li>
-<li><a href="#rebase%E5%90%88%E5%B9%B6">rebase合并</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86">静态代理</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86">动态代理</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">单例模式</a>
+<ul>
+<li><a href="#%E9%A5%BF%E6%B1%89%E5%BC%8F">饿汉式</a></li>
+<li><a href="#%E6%87%92%E6%B1%89%E5%BC%8F">懒汉式</a></li>
+<li><a href="#%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E6%87%92%E6%B1%89%E5%BC%8F">双重检查懒汉式</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E6%87%92%E6%B1%89%E5%BC%8F">静态内部类懒汉式</a></li>
 </ul>
 </li>
 </ul>
@@ -512,8 +520,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://lhlh1994.github.io/post/git-shi-yong/">
-      Git使用
+    <a class="post-title-link" href="https://lhlh1994.github.io/post/she-ji-mo-shi/">
+      设计模式
     </a>
   </h1>
   <div class="post-meta">
@@ -521,7 +529,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-10-21 10:15:27">2020-10-21</span>
+      <span class="publish-time" data-t="2020-10-22 11:48:33">2020-10-22</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -530,8 +538,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://lhlh1994.github.io/tag/Zla7QmBeV/">
-        <span>git</span>
+      <a href="https://lhlh1994.github.io/tag/Hyj908lHK/">
+        <span>java</span>
       </a>
       
       
@@ -545,84 +553,173 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>727<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>703<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>Git常用命令，以及使用方式</p>
+              <p>Java的23种设计模式，逐渐完善中</p>
 <!-- more -->
-<h1 id="git-命令速查">git 命令速查</h1>
-<p>git branch 查看本地所有分支<br>
-git status 查看当前状态<br>
-git commit 提交<br>
-git branch -a 查看所有的分支<br>
-git branch -r 查看远程所有分支<br>
-git commit -am &quot;init&quot; 提交并且加注释<br>
-git remote add origin git@192.168.1.119:ndshow<br>
-git push origin master 将文件给推到服务器分支上<br>
-git remote show origin 显示远程库origin里的资源<br>
-git push origin master:hb-dev 将本地库与服务器上的库进行关联<br>
-git checkout --track origin/dev 切换到远程dev分支<br>
-git branch -D develop 删除本地库develop<br>
-git checkout -b dev 建立一个新的本地分支dev<br>
-git merge origin/dev 将分支dev与当前分支进行合并<br>
-git checkout dev 切换到本地dev分支<br>
-git remote show 查看远程库<br>
-git add .<br>
-git rm 文件名(包括路径) 从git中删除指定文件<br>
-git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来<br>
-git config --list 看所有用户<br>
-git ls-files 看已经被提交的<br>
-git rm [file name] 删除一个文件<br>
-git commit -a 提交当前repos的所有的改变<br>
-git add [file name] 添加一个文件到git index<br>
-git commit -v 当你用－v参数的时候可以看commit的差异<br>
-git commit -m &quot;This is the message describing the commit&quot; 添加commit信息<br>
-git commit -a -a是代表add，把所有的change加到git index里然后再commit<br>
-git commit -a -v 一般提交命令<br>
-git log 看你commit的日志<br>
-git diff 查看尚未暂存的更新<br>
-git rm a.a 移除文件(从暂存区和工作区中删除)<br>
-git rm --cached a.a 移除文件(只从暂存区中删除)<br>
-git commit -m &quot;remove&quot; 移除文件(从Git中删除)<br>
-git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)<br>
-git diff --cached 或 $ git diff --staged 查看尚未提交的更新<br>
-git stash push 将文件给push到一个临时空间中<br>
-git stash pop 将文件从临时空间pop下来<br>
-git fetch 相当于是从远程获取最新版本到本地，不会自动merge</p>
-<figure data-type="image" tabindex="1"><img src="https://lhlh1994.github.io/post-images/1603246945060.png" alt="Git 常用命令图表 " loading="lazy"></figure>
-<h1 id="合并多次commit">合并多次commit</h1>
-<h2 id="reset合并推荐">reset合并（推荐）</h2>
-<pre><code class="language-sh">git status
-git log
-git reset -soft 2983d9b678d19602d0d574b137395ff82387fa1d(前一个提交)
-git status
-git add .
-git commit -m &quot;feat: 本次版本内容&quot;
-git push -f
+<h1 id="设计模式分类">设计模式分类</h1>
+<figure data-type="image" tabindex="1"><img src="https://lhlh1994.github.io/post-images/1603352615759.png" alt="" loading="lazy"></figure>
+<h1 id="代理模式">代理模式</h1>
+<p><strong>接口</strong></p>
+<pre><code class="language-java">public interface HelloService {
+    void sayHello();
+}
 </code></pre>
-<h2 id="rebase合并">rebase合并</h2>
-<pre><code class="language-sh"># 1. 查看最近提交记录
-git log
-
-# 2. 选择合并的起始点
-git rebase -i 8d583c56
-
-# 3. 将除第一行之外的 pick 设置为 s，然后 wq 保存并退出     s 的意思是这个 commit 会被合并到前一个 commit
-
-# 4. 有冲突需要解决冲突，解决完之后需要执行如下命令
-git add .
-git rebase --continue
-
-# 5. 进入 commit message 编辑页，修改commit message，然后输入 wq 保存并退出
-
-# 6. 最后将代码push到远程分支
-git push -f
-
-# 过程中出现错误或者不想继续了，可以退出，并执行 git rebase --abort
+<p><strong>接口实现</strong></p>
+<pre><code class="language-java">public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println(&quot;Hello World!&quot;);
+    }
+}
 </code></pre>
+<h2 id="静态代理">静态代理</h2>
+<blockquote>
+<p>静态代理代理类在编译期就生成，静态代理代码冗余大，一但需要修改接口，代理类和委托类都需要修改。</p>
+</blockquote>
+<pre><code class="language-java">public class HelloServiceStaticProxy implements HelloService {
+    private HelloService helloService;
+    public HelloServiceStaticProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    @Override
+    public void sayHello() {
+        System.out.println(&quot;Before say hello...&quot;);
+        helloService.sayHello();
+        System.out.println(&quot;After say hello...&quot;);
+    }
+
+    // 测试
+    public static void main(String[] args) {
+        HelloServiceStaticProxy helloServiceStaticProxy = new HelloServiceStaticProxy(new HelloServiceImpl());
+        helloServiceStaticProxy.sayHello();
+    }
+}
+</code></pre>
+<h2 id="动态代理">动态代理</h2>
+<blockquote>
+<p>Java中的动态代理代理类在JVM运行时动态生成，依靠反射来实现，委托类需要实现接口。<br>
+Java动态代理主要涉及到两个类：java.lang.reflect.Proxy和java.lang.reflect.InvocationHandler。<br>
+代理类需要实现InvocationHandler接口或者创建匿名内部类。</p>
+</blockquote>
+<pre><code class="language-java">public class HelloServiceDynamicProxy {
+    private HelloService helloService;
+    public HelloServiceDynamicProxy(HelloService helloService) {
+        this.helloService = helloService;
+    }
+    public Object getProxyInstance() {
+        return Proxy.newProxyInstance(helloService.getClass().getClassLoader(), helloService.getClass().getInterfaces(), new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                System.out.println(&quot;Before say hello...&quot;);
+                Object ret = method.invoke(helloService, args);
+                System.out.println(&quot;After say hello...&quot;);
+                return ret;
+            }
+        });
+    }
+
+    public static void main(String[] args){
+        HelloService helloService = new HelloServiceImpl();
+        HelloService dynamicProxy = (HelloService) new HelloServiceDynamicProxy(helloService).getProxyInstance();
+        dynamicProxy.sayHello();
+    }
+}
+</code></pre>
+<h1 id="单例模式">单例模式</h1>
+<h2 id="饿汉式">饿汉式</h2>
+<blockquote>
+<p>饿汉式单例，随着项目的启动就已经创建类</p>
+</blockquote>
+<pre><code class="language-java">public class HungerSingle {
+
+    private HungerSingle() {}
+    private static HungerSingle single = new HungerSingle();
+    public static HungerSingle getInstance() {
+        return single;
+    }
+
+    public static void main(String[] args) {
+        HungerSingle instance = HungerSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="懒汉式">懒汉式</h2>
+<blockquote>
+<p>懒汉式单例，用到时候才创建<br>
+懒汉式存在多线程安全问题，因此每次调用的时候都需要加锁判断，效率较低</p>
+</blockquote>
+<pre><code class="language-java">public class LazySingle {
+    private LazySingle() {
+    }
+    private static LazySingle single = null;
+    public static synchronized LazySingle getInstance () {    //加锁同步安全
+        if (single == null) {
+            single = new LazySingle();
+        }
+        return single;
+    }
+    public static void main(String[] args) {
+        LazySingle instance = LazySingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="双重检查懒汉式">双重检查懒汉式</h2>
+<blockquote>
+<p>为了解决懒汉式效率问题，引入了双重检查机制，以提升效率</p>
+</blockquote>
+<pre><code class="language-java">public class DoubleCheckSingle {
+    private DoubleCheckSingle() {
+    }
+    private static DoubleCheckSingle single = null;
+    public static DoubleCheckSingle getInstance () {
+        //1. 先检查实例是否存在，如果不存在才进入下面的同步块
+        if (single == null) {
+            synchronized (DoubleCheckSingle.class){
+                //2. 可能会有多个线程进入1判断，需要再次检查实例是否存在，如果不存在才真正的创建实例
+                if(single == null){
+                    single = new DoubleCheckSingle();
+                }
+            }
+        }
+        return single;
+    }
+
+    public static void main(String[] args) {
+        DoubleCheckSingle instance = DoubleCheckSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<h2 id="静态内部类懒汉式">静态内部类懒汉式</h2>
+<blockquote>
+<p>除了双重检查机制之外还可以使用静态内部类的特点（只有在出现它的引用时才被加载），完成懒加载</p>
+</blockquote>
+<pre><code class="language-java">public class LazyMultithreadingSingle {
+    private LazyMultithreadingSingle(){}
+    public static LazyMultithreadingSingle getInstance(){
+        return SingleHolder.instance;
+    }
+    private static class SingleHolder{
+        public static LazyMultithreadingSingle instance = new LazyMultithreadingSingle();
+    }
+
+    public static void main(String[] args) {
+        LazyMultithreadingSingle instance = LazyMultithreadingSingle.getInstance();
+        System.out.println(instance);
+    }
+}
+</code></pre>
+<p>相关连接<br>
+https://www.cnblogs.com/pony1223/p/7608955.html<br>
+https://www.cnblogs.com/pony1223/p/7594803.html<br>
+http://c.biancheng.net/design_pattern/</p>
 
             </div>
             
@@ -635,7 +732,7 @@ git push -f
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://lhlh1994.github.io/post/git-shi-yong/" title="Git使用">https://lhlh1994.github.io/post/git-shi-yong/</a>
+      <a href="https://lhlh1994.github.io/post/she-ji-mo-shi/" title="设计模式">https://lhlh1994.github.io/post/she-ji-mo-shi/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -644,21 +741,21 @@ git push -f
   </ul>
   <div class="tags">
     
-      <a href="https://lhlh1994.github.io/tag/Zla7QmBeV/"># git</a>
+      <a href="https://lhlh1994.github.io/tag/Hyj908lHK/"># java</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="设计模式" href="https://lhlh1994.github.io/post/she-ji-mo-shi/">设计模式</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="设计模式" href="https://lhlh1994.github.io/post/she-ji-mo-shi/">上一篇</a>
+        <a class="nav-pc-next" title="Spring Boot学习笔记" href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/">Spring Boot学习笔记</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Spring Boot学习笔记" href="https://lhlh1994.github.io/post/spring-boot-xue-xi-bi-ji/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Linux基本命令" href="https://lhlh1994.github.io/post/linux-ji-ben-ming-ling/">Linux基本命令</a>
-        <a class="nav-mobile-next" title="Linux基本命令" href="https://lhlh1994.github.io/post/linux-ji-ben-ming-ling/">下一篇</a>
+        <a class="nav-pc-next" title="Git使用" href="https://lhlh1994.github.io/post/git-shi-yong/">Git使用</a>
+        <a class="nav-mobile-next" title="Git使用" href="https://lhlh1994.github.io/post/git-shi-yong/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
