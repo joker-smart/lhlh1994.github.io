@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>dolphinscheduler部署 | Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603614102374">
+<link rel="shortcut icon" href="/favicon.ico?v=1603694566628">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -2015,6 +2015,10 @@ sql语句：
           &lt;p&gt;Spring Boot与其他框架的集成&lt;/p&gt;
 &lt;!-- more --&gt;
 &lt;h1 id=&#34;集成mybatis-plus&#34;&gt;集成Mybatis-plus&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于Mybatis之上再次封装了一次，使得CURD变得更加简单&lt;br&gt;
+官网：https://baomidou.com/&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
     &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;
@@ -2092,7 +2096,11 @@ public class MybatisPlusConfig {
 public class GroupInfoServiceImpl extends ServiceImpl&amp;lt;GroupInfoMapper, GroupInfo&amp;gt; implements GroupInfoService {
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;集成swagger2&#34;&gt;集成Swagger2&lt;/h1&gt;
+&lt;h1 id=&#34;集成knife4j&#34;&gt;集成Knife4j&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于Swagger2再次封装，拥有良好的UI界面，丰富了Swagger2的功能&lt;br&gt;
+官网：https://doc.xiaominfo.com/guide/useful.html&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
     &amp;lt;groupId&amp;gt;com.github.xiaoymin&amp;lt;/groupId&amp;gt;
@@ -2169,6 +2177,46 @@ public class SwaggerConfig {
 &lt;li&gt;@Apimodel(&amp;quot;实体类&amp;quot;)&lt;/li&gt;
 &lt;li&gt;@ApiModelProperty(&amp;quot;实体类属性&amp;quot;)&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h1 id=&#34;集成forest&#34;&gt;集成Forest&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Forest 是一个开源的 Java HTTP 客户端框架，它能够将 HTTP 的所有请求信息（包括 URL、Header 以及 Body 等信息）绑定到您自定义的 Interface 方法上，能够通过调用本地接口方法的方式发送 HTTP 请求。&lt;br&gt;
+官网：https://dt_flys.gitee.io/forest/#/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.dtflys.forest&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-boot-starter-forest&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.3.11&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;常用配置&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;forest:
+  logEnabled: false # 打开或关闭日志，默认为true
+  timeout: 30000  # 请求超时时间，单位为毫秒, 20s超时
+  connect-timeout: 30000 # 连接超时时间，单位为毫秒, 20s超时
+  # 自定义一些常量
+  variables:
+    esUrl: http://10.3.7.138:9200
+    ssoUrl: http://login.weipaitang.com
+    authUrl: http://authapit.weipaitang.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;编写client&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@BaseRequest(baseURL = &amp;quot;${esUrl}&amp;quot;, headers = {
+        &amp;quot;Content-Type: application/json&amp;quot;
+})
+public interface ESClient {
+    @Request(
+            url = &amp;quot;/_sql&amp;quot;,
+            data = &amp;quot;${json($data)}&amp;quot;,
+            type = &amp;quot;POST&amp;quot;
+    )
+    String queryBySql(@DataVariable(&amp;quot;data&amp;quot;) Map&amp;lt;String, Object&amp;gt; data, OnError onError);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;添加包扫描&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要在Application类上添加 &lt;code&gt;@ForestScan(basePackages = &amp;quot;com.wpt.dc.portrait.client&amp;quot;)&lt;/code&gt;注解&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&#34;集成redis&#34;&gt;集成Redis&lt;/h1&gt;
 &lt;h1 id=&#34;集成activemq&#34;&gt;集成ActiveMQ&lt;/h1&gt;
 &lt;h1 id=&#34;集成thymeleaf&#34;&gt;集成Thymeleaf&lt;/h1&gt;
@@ -2726,6 +2774,73 @@ public class ChannelFilter implements Filter {
     }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;spring-boot-aop&#34;&gt;Spring Boot AOP&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AOP：Aspect Oriented Programming 的缩写，意为：面向切面编程。面向切面编程的目标就是分离关注点。什么是关注点呢？就是关注点，就是你要做的事情。假如你是一位公子哥，没啥人生目标，每天衣来伸手，饭来张口，整天只知道一件事：玩（这就是你的关注点，你只要做这一件事）！但是有个问题，你在玩之前，你还需要起床、穿衣服、穿鞋子、叠被子、做早饭等等等等，但是这些事情你不想关注，也不用关注，你只想想玩，那么怎么办呢？&lt;br&gt;
+当然这些事情都是交给下人去做了，叫你起床、帮你穿衣服、帮你穿鞋、叠被子、做早饭等等，你只要关心怎么“玩”就好了。&lt;br&gt;
+这就是AOP。AOP 的好处就是你只需要干你的正事，其它事情别人帮你干。或许某天你想裸奔，那只要把帮你穿衣服的下人下掉就好了；或许某天你想去买东西，那么只要再叫一个下人去帮你买就行了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;导入依赖&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+	&amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+	&amp;lt;artifactId&amp;gt;spring-boot-starter-aop&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;自定义注解&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LogHandler {
+    String baseLog() default &amp;quot;&amp;quot;;
+    String[] params();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;定义切面&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 创建一个切面类
+@Component
+@Aspect
+public class LogAspect {
+    private static final Logger LOG = LoggerFactory.getLogger(LogAspect.class);
+
+    // 定义切面需要拦截的东西，可以使用包名、自定义注解
+    //@Pointcut(&amp;quot;execution(* com.wpt.dc.portrait.controller..*.*(..))&amp;quot;)
+    @Pointcut(&amp;quot;@annotation(LogHandler)&amp;quot;)
+    private void logHandleMethod() {
+        
+    }
+
+    @Before(value = &amp;quot;logHandleMethod()&amp;quot;) // 指定切面
+    public void doThrowing(JoinPoint joinPoint) {
+        // do some things
+    }
+
+    @After(value = &amp;quot;logHandleMethod()&amp;quot;) // 指定切面
+    public void doThrowing(JoinPoint joinPoint) {
+        // do some things
+    }
+
+    @AfterReturning(value = &amp;quot;logHandleMethod()&amp;quot;) // 指定切面
+    public void doThrowing(JoinPoint joinPoint) {
+        // do some things
+    }
+
+    @AfterThrowing(value = &amp;quot;logHandleMethod()&amp;quot;) // 指定切面
+    public void doThrowing(JoinPoint joinPoint) {
+        // do some things
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;注解说明&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@Pointcut：定义一个切面，即上面所描述的关注的某件事入口。&lt;/li&gt;
+&lt;li&gt;@Before：在做某件事之前做的事。&lt;/li&gt;
+&lt;li&gt;@After：在做某件事之后做的事。&lt;/li&gt;
+&lt;li&gt;@AfterReturning：在做某件事之后，对其返回值做增强处理。&lt;/li&gt;
+&lt;li&gt;@AfterThrowing：在做某件事抛出异常时，处理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果拦截包名，&lt;code&gt;execution()&lt;/code&gt; 为表达式主体&lt;br&gt;
+第一个 &lt;code&gt;*&lt;/code&gt; 号的位置：表示返回值类型，&lt;code&gt;*&lt;/code&gt; 表示所有类型&lt;br&gt;
+包名：表示需要拦截的包名，后面的两个句点表示当前包和当前包的所有子包，&lt;code&gt;com.wpt.dc.portrait.controller&lt;/code&gt; 包、子包下所有类的方法&lt;br&gt;
+第二个 &lt;code&gt;*&lt;/code&gt; 号的位置：表示类名，&lt;code&gt;*&lt;/code&gt; 表示所有类&lt;br&gt;
+&lt;code&gt;*(..)&lt;/code&gt; ：这个星号表示方法名，&lt;code&gt;*&lt;/code&gt; 表示所有的方法，后面括弧里面表示方法的参数，两个句点表示任何参数&lt;/p&gt;
 ">Spring Boot学习笔记</a>
       </div>
       
