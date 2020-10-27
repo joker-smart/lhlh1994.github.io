@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>设计模式 | Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603699645529">
+<link rel="shortcut icon" href="/favicon.ico?v=1603779428640">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -240,6 +240,12 @@
 <li><a href="#%E6%87%92%E6%B1%89%E5%BC%8F">懒汉式</a></li>
 <li><a href="#%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E6%87%92%E6%B1%89%E5%BC%8F">双重检查懒汉式</a></li>
 <li><a href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E6%87%92%E6%B1%89%E5%BC%8F">静态内部类懒汉式</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">策略模式</a>
+<ul>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF">解决思路</a></li>
+<li><a href="#%E6%94%B9%E8%BF%9B%E6%96%B9%E6%A1%88">改进方案</a></li>
 </ul>
 </li>
 </ul>
@@ -535,12 +541,12 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>4<span class="language" data-lan="minute">分钟</span></span>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>703<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1209<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
@@ -703,6 +709,138 @@ Java动态代理主要涉及到两个类：java.lang.reflect.Proxy和java.lang.r
     }
 }
 </code></pre>
+<h1 id="策略模式">策略模式</h1>
+<blockquote>
+<p>场景：当我们接收到一些数据需要对其进行处理时，由于它们来自于不同的渠道（如：微信，支付宝），不同渠道所需的处理方式不同，下面我们写一个简单Demo来实现该的场景。</p>
+</blockquote>
+<h2 id="解决思路">解决思路</h2>
+<ol>
+<li>构建一个抽象类</li>
+</ol>
+<pre><code class="language-java">public abstract class AbstractPayChannel {
+    public abstract void pay();
+}
+</code></pre>
+<ol start="2">
+<li>构建微信类实现抽象类</li>
+</ol>
+<pre><code class="language-java">public class WxPayChannel extends AbstractPayChannel{
+    @Override
+    public void pay(){
+        // do some things
+    }
+}
+</code></pre>
+<ol start="3">
+<li>构建支付宝类实现抽象类</li>
+</ol>
+<pre><code class="language-java">public class AliPayChannel extends AbstractPayChannel {
+    @Override
+    public void pay(){
+        // do some things
+    }
+}
+</code></pre>
+<ol start="4">
+<li>编写一个枚举类</li>
+</ol>
+<pre><code class="language-java">public enum PayChannelEnum {
+    /**
+    * 微信
+    */
+    WXPAY(&quot;WXPAY&quot;),
+    /**
+    * 支付宝
+    */
+    ALIPAY(&quot;ALIPAY&quot;),
+    ;
+
+    PayChannelEnum(String name){
+    }
+}
+</code></pre>
+<ol start="5">
+<li>测试</li>
+</ol>
+<pre><code class="language-java">public static void main(String[] args) {
+    String sign = &quot;WXPAY&quot;;
+    AbstractPayChannel payChannel;
+    //根据对应渠道获取对应的支付渠道实体实现类
+    if (PayChannelEnum.WXPAY.code.equals(sign)) {
+        payChannel = new WxPayChannel();
+    } else if (PayChannelEnum.ALIPAY.code.equals(sign)) {
+        payChannel = new AliPayChannel();
+    } else {
+        //匹配不到
+    }
+    //执行
+    payChannel.pay();
+}
+</code></pre>
+<blockquote>
+<p>不难发现通过上面的方式实现会有两个缺点</p>
+<ol>
+<li>当我们需要新增渠道的时候需要对main方法进行改动</li>
+<li>新增渠道后，修改代码会产生大量的if-else，不太优雅</li>
+</ol>
+</blockquote>
+<h2 id="改进方案">改进方案</h2>
+<blockquote>
+<p>为了解决上述的问题，可以采用下面的解决思路<br>
+我们调整一下枚举类，增加一个AbstractPayChannel作为属性，并且给对应渠道构建对应的GeneralChannelRule实现类，新增一个match() 匹配方法。</p>
+</blockquote>
+<ol>
+<li>修改枚举类</li>
+</ol>
+<pre><code class="language-java">public enum PayChannelEnum {
+    // 微信
+    WXPAY(&quot;WXPAY&quot;,new WxPayChannel()),
+    // 支付宝
+    ALIPAY(&quot;ALIPAY&quot;,new AliPayChannel()),
+    ;
+
+    public String name;
+
+    public AbstractPayChannel payChannel;
+
+    PayChannelEnum(String name, AbstractPayChannel payChannel) {
+        this.name = name;
+        this.payChannel = payChannel;
+    }
+
+    //匹配
+    public static PayChannelEnum match(String name){
+        PayChannelEnum[] values = PayChannelEnum.values();
+        for (PayChannelEnum value : values) {
+            if(value.name.equals(name)){
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public AbstractPayChannel getPayChannel() {
+        return payChannel;
+    }
+}
+</code></pre>
+<ol start="2">
+<li>修改main方法</li>
+</ol>
+<pre><code class="language-java">public static void main(String[] args) {
+    String sign = &quot;ALIPAY&quot;;
+    PayChannelEnum payChannelEnum = PayChannelEnum.match(sign);
+    AbstractPayChannel payChannel = payChannelEnum.getPayChannel();
+    payChannel.pay();
+}
+</code></pre>
+<blockquote>
+<p>通过上述的修改，我们发现不但减少了代码里面的if-else，同时还解决了新增渠道会影响到main方法的问题，一举两得</p>
+</blockquote>
 <p>相关连接<br>
 https://www.cnblogs.com/pony1223/p/7608955.html<br>
 https://www.cnblogs.com/pony1223/p/7594803.html<br>
@@ -2197,6 +2335,138 @@ Java动态代理主要涉及到两个类：java.lang.reflect.Proxy和java.lang.r
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;策略模式&#34;&gt;策略模式&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;场景：当我们接收到一些数据需要对其进行处理时，由于它们来自于不同的渠道（如：微信，支付宝），不同渠道所需的处理方式不同，下面我们写一个简单Demo来实现该的场景。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;解决思路&#34;&gt;解决思路&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;构建一个抽象类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public abstract class AbstractPayChannel {
+    public abstract void pay();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;构建微信类实现抽象类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class WxPayChannel extends AbstractPayChannel{
+    @Override
+    public void pay(){
+        // do some things
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;构建支付宝类实现抽象类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class AliPayChannel extends AbstractPayChannel {
+    @Override
+    public void pay(){
+        // do some things
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;编写一个枚举类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public enum PayChannelEnum {
+    /**
+    * 微信
+    */
+    WXPAY(&amp;quot;WXPAY&amp;quot;),
+    /**
+    * 支付宝
+    */
+    ALIPAY(&amp;quot;ALIPAY&amp;quot;),
+    ;
+
+    PayChannelEnum(String name){
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;测试&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public static void main(String[] args) {
+    String sign = &amp;quot;WXPAY&amp;quot;;
+    AbstractPayChannel payChannel;
+    //根据对应渠道获取对应的支付渠道实体实现类
+    if (PayChannelEnum.WXPAY.code.equals(sign)) {
+        payChannel = new WxPayChannel();
+    } else if (PayChannelEnum.ALIPAY.code.equals(sign)) {
+        payChannel = new AliPayChannel();
+    } else {
+        //匹配不到
+    }
+    //执行
+    payChannel.pay();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不难发现通过上面的方式实现会有两个缺点&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当我们需要新增渠道的时候需要对main方法进行改动&lt;/li&gt;
+&lt;li&gt;新增渠道后，修改代码会产生大量的if-else，不太优雅&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;改进方案&#34;&gt;改进方案&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了解决上述的问题，可以采用下面的解决思路&lt;br&gt;
+我们调整一下枚举类，增加一个AbstractPayChannel作为属性，并且给对应渠道构建对应的GeneralChannelRule实现类，新增一个match() 匹配方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;修改枚举类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public enum PayChannelEnum {
+    // 微信
+    WXPAY(&amp;quot;WXPAY&amp;quot;,new WxPayChannel()),
+    // 支付宝
+    ALIPAY(&amp;quot;ALIPAY&amp;quot;,new AliPayChannel()),
+    ;
+
+    public String name;
+
+    public AbstractPayChannel payChannel;
+
+    PayChannelEnum(String name, AbstractPayChannel payChannel) {
+        this.name = name;
+        this.payChannel = payChannel;
+    }
+
+    //匹配
+    public static PayChannelEnum match(String name){
+        PayChannelEnum[] values = PayChannelEnum.values();
+        for (PayChannelEnum value : values) {
+            if(value.name.equals(name)){
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public AbstractPayChannel getPayChannel() {
+        return payChannel;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;修改main方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public static void main(String[] args) {
+    String sign = &amp;quot;ALIPAY&amp;quot;;
+    PayChannelEnum payChannelEnum = PayChannelEnum.match(sign);
+    AbstractPayChannel payChannel = payChannelEnum.getPayChannel();
+    payChannel.pay();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过上述的修改，我们发现不但减少了代码里面的if-else，同时还解决了新增渠道会影响到main方法的问题，一举两得&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;相关连接&lt;br&gt;
 https://www.cnblogs.com/pony1223/p/7608955.html&lt;br&gt;
 https://www.cnblogs.com/pony1223/p/7594803.html&lt;br&gt;
